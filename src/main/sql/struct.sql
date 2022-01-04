@@ -17,7 +17,6 @@ CREATE TABLE item (
   PRIMARY KEY (id)
 ) DEFAULT CHARACTER SET=utf8;
 
-
 CREATE TABLE item_assignment (
   item int(11) NOT NULL,
   class varchar(32) NOT NULL,
@@ -25,9 +24,8 @@ CREATE TABLE item_assignment (
   FOREIGN KEY (item) REFERENCES item(id)
 ) DEFAULT CHARACTER SET=utf8;
 
-
 CREATE TABLE raid (
-  id        int(11)      NOT NULL,
+  id        int(11)      NOT NULL AUTO_INCREMENT,
   name      varchar(128) NOT NULL,
   instance  varchar(8)   NOT NULL,
   date      datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -59,6 +57,7 @@ CREATE TABLE player_loot (
 
 
 -- HELP
-
-
+ALTER TABLE raid MODIFY COLUMN id int(11) NOT NULL AUTO_INCREMENT;
+select * from information_schema.table_constraints where constraint_schema = 'epgp';
+ALTER TABLE `table_name` DROP FOREIGN KEY 'toto';
 

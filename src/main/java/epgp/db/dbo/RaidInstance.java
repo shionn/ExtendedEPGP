@@ -1,6 +1,7 @@
 package epgp.db.dbo;
 
 public enum RaidInstance {
+	None,
 	MC,
 	BWL,
 	ZG,

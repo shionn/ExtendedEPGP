@@ -72,7 +72,7 @@
 					<label for="id">Object à éditer</label>
 					<select name="id">
 						<c:forEach items="${items}" var="c">
-							<option value="${c.id}">${c.name} (${c.slot.fr} ${c.ilvl}-${c.ptRatio}-${c.pt})</option>
+							<option value="${c.id}">${c.name} (${c.raid} ${c.slot.fr} ${c.ilvl}-${c.ptRatio}-${c.pt})</option>
 						</c:forEach>
 					</select>
 				</div>

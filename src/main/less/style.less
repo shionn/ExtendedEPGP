@@ -1,0 +1,172 @@
+@import "jquery-ui.structure-datepicker-1.12.1.less";
+@import "jquery-ui.theme-datepicker-1.12.1.less";
+@import "fontawesome/font-awesome.less";
+
+body {
+	padding: 0 1em;
+}
+
+a {
+	color: black;
+	text-decoration-line: none;
+}
+
+aside {
+	&.message {
+		border-radius: 4px;
+		color: white;
+		padding: .5em 1em;
+		margin-top: .5em;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+		&.success {
+			background-color: rgb(28, 184, 65);
+		}
+
+		&.error {
+			background-color: rgb(202, 60, 60);
+		}
+	}
+}
+
+img.class {
+	height:18px;
+}
+
+div.pure-menu {
+	border-bottom: 1px solid #cbcbcb;
+	ul.pure-menu-children {
+		border-bottom: 1px solid #cbcbcb;
+		border-left: 1px solid #cbcbcb;
+		border-right: 1px solid #cbcbcb;
+	}
+}
+
+html table.pure-table.class-color {
+	border: 1px solid #000;
+}
+
+html table.pure-table-horizontal.class-color {
+	td, th {
+		border-bottom: 1px solid #000;
+		&.border-right {
+			border-right: 1px solid #000;
+		}
+	}
+}
+
+table {
+	margin-top: .5em;
+
+	thead tr:first-child th {
+		position: sticky;
+		top: 0;
+		background-color: #e0e0e0;
+	}
+
+	thead tr:nth-child(2) th {
+		position: sticky;
+		top: 35px;
+		background-color: #e0e0e0;
+	}
+
+	td.border-right {
+		border-right: 1px solid #cbcbcb;
+	}
+
+	tr td:not(:first-child), tr th:not(:first-child) {
+		text-align: center;
+	}
+
+	tr, td, th {
+		&.Druid {
+			background-color: orange;
+		}
+
+		&.Hunter {
+			background-color: lightgreen;
+		}
+	
+		&.Mage {
+			background-color: lightblue;
+		}
+	
+		&.Paladin, &.Shaman {
+			background-color: lightpink;
+		}
+	
+		&.Rogue {
+			background-color: lightgoldenrodyellow;
+		}
+	
+		&.Warlock {
+			background-color: lightsteelblue;
+		}
+	
+		&.Warrior {
+			background-color: burlywood;
+		}
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+}
+
+table.dkp-history {
+	td, th {
+		text-align: center;
+	}
+}
+
+div.rh.col {
+	display: flex;
+	flex-direction: column;
+
+	span.rh.player {
+		display: block;
+		width: 200px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-align: center;
+
+		.fa-university {
+			display: none;
+		}
+
+		&:hover .fa {
+			display: initial;
+		}
+
+		a {
+			text-decoration : none;
+			color: black;
+		}
+
+		&.Tank, &.Warrior {
+			background-color: burlywood;
+		}
+		&.Bear, &.RestoDruid, &.Feral, &.Balance {
+			background-color: orange;
+		}
+		&.ProtPaladin, &.HolyPaladin, &.Retri {
+			background-color: lightpink;
+		}
+		&.Mage {
+			background-color: lightblue;
+		}
+		&.Warlock {
+			background-color: lightsteelblue;
+		}
+		&.Rogue {
+			background-color: lightgoldenrodyellow;
+		}
+		&.Hunter {
+			background-color: lightgreen;
+		}
+	}
+}
+
+@import "button.less";
