@@ -69,6 +69,8 @@
 		<aside class="message error">${error}</aside>
 	</c:if>
 	<jsp:invoke fragment="content" />
+	<script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: false, iconSize: 'small', domain: 'classic' };</script>
+	<script src="https://wow.zamimg.com/widgets/power.js"></script>
 	<script src="<spring:url value="/js/jquery-3.2.1.min.js"/>"></script>
 	<script src="<spring:url value="/js/jquery-ui-datepicker-1.12.1.min.js"/>"></script>
 	<script src="<spring:url value="/js/jquery-ui-datepicker-fr-1.12.1.js"/>"></script>

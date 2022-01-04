@@ -56,6 +56,11 @@ public interface ItemDao {
 			+ "WHERE id = #{id}")
 	int update(Item item);
 
+	@Select("SELECT * FROM item " //
+			+ "WHERE id IN (SELECT item FROM item_assignment WHERE class = #{class}) "
+			+ "ORDER BY name")
+	List<Item> listAvailableForClass(@Param("class") PlayerClass clazz);
+
 	// @Select("SELECT * FROM item " //
 	// + "WHERE raid = (SELECT instance FROM raid WHERE id = #{id}) " //
 	// + "ORDER BY raid DESC, name ASC")

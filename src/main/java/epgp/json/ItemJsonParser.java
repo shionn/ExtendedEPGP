@@ -16,6 +16,8 @@ import epgp.db.dbo.RaidInstance;
 
 @Component
 public class ItemJsonParser {
+	private static final String CATEGORY = "category";
+	private static final String SOURCE = "source";
 	private static final String SLOT = "slot";
 	private static final String SUBCLASS = "subclass";
 	private static final String LABEL = "label";
@@ -27,7 +29,6 @@ public class ItemJsonParser {
 		JSONObject json = retreiveJsonObject(id);
 		System.out.println(json.toString());
 		Item item = buildFrom(json);
-		item.setRaid(RaidInstance.fromBoss(item.getBoss()));
 		item.setPtRatio(100);
 		item.setPt(new EpgpComputer().computeGp(item.getIlvl(), item.getSlot(), item.getPtRatio()));
 		return item;
@@ -37,7 +38,7 @@ public class ItemJsonParser {
 		Iterator<Object> ite = ItemJsonDataHolder.get().iterator();
 		while (ite.hasNext()) {
 			JSONObject next = (JSONObject) ite.next();
-			if (next.getInt("itemId") == 16921) {
+			if (next.getInt("itemId") == id) {
 				return next;
 			}
 		}
@@ -49,20 +50,32 @@ public class ItemJsonParser {
 		item.setId(json.getInt("itemId"));
 		item.setName(json.getString("name"));
 		item.setIlvl(json.getInt("itemLevel"));
-		item.setSlot(ItemSlot.valueOf(json.getString(SLOT)));
+		item.setSlot(ItemSlot.valueOf(json.getString(SLOT).replaceAll("-| ", "")));
 		item.setName(retreiveToolTip(json, LABEL));
 		item.setClasses(retreiveClasses(json));
-		item.setBoss(retreiveBoss(json));
+		item.setRaid(retreiveRaid(json));
+		item.setBoss(retreiveBoss(json, item.getRaid()));
 		return item;
 	}
 
-	private String retreiveBoss(JSONObject json) {
+	private RaidInstance retreiveRaid(JSONObject json) {
+		return null;
+	}
+
+	private String retreiveBoss(JSONObject json, RaidInstance raid) {
 		Iterator<Object> ite = json.getJSONArray(TOOLTIP).iterator();
 		String boss = null;
 		while (ite.hasNext() && boss == null) {
 			JSONObject next = (JSONObject) ite.next();
 			if (next.has(LABEL) && next.getString(LABEL).startsWith(DROPPED_BY__)) {
 				boss = next.getString(LABEL).substring(DROPPED_BY__.length());
+			}
+		}
+		if (json.has(SOURCE)) {
+			switch (json.getJSONObject(SOURCE).getString(CATEGORY)) {
+			case "Boss Drop":
+				boss = json.getJSONObject(SOURCE).getString("name");
+				break;
 			}
 		}
 		return boss;
@@ -88,6 +101,52 @@ public class ItemJsonParser {
 					classes.add(PlayerClass.Priest);
 					classes.add(PlayerClass.Warlock);
 				}
+				break;
+			case "Leather":
+				classes.add(PlayerClass.Druid);
+				classes.add(PlayerClass.Rogue);
+				break;
+			case "Libram":
+				classes.add(PlayerClass.Paladin);
+				break;
+			case "Mace":
+				classes.add(PlayerClass.Druid);
+				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Priest);
+				classes.add(PlayerClass.Rogue);
+				classes.add(PlayerClass.Shaman);
+				classes.add(PlayerClass.Warrior);
+				break;
+			case "Mail":
+				classes.add(PlayerClass.Hunter);
+				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Shaman);
+				classes.add(PlayerClass.Warrior);
+				break;
+			case "Miscellaneous":
+				classes.addAll(Arrays.asList(PlayerClass.values()));
+				break;
+			case "Plate":
+				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Warrior);
+				break;
+			case "Shield":
+				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Warrior);
+				classes.add(PlayerClass.Shaman);
+				break;
+			case "Staff":
+				classes.add(PlayerClass.Druid);
+				classes.add(PlayerClass.Mage);
+				classes.add(PlayerClass.Priest);
+				classes.add(PlayerClass.Shaman);
+				classes.add(PlayerClass.Warlock);
+				classes.add(PlayerClass.Warrior);
+				break;
+			case "Wand":
+				classes.add(PlayerClass.Mage);
+				classes.add(PlayerClass.Priest);
+				classes.add(PlayerClass.Warlock);
 				break;
 			default:
 				throw new IllegalArgumentException(

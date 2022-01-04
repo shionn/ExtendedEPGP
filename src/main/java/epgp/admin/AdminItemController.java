@@ -31,16 +31,11 @@ public class AdminItemController {
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
 	public String createItem(@RequestParam(name = "id") int id, RedirectAttributes attr) {
 		Item item = parser.get(id);
-		if (item.getRaid() == null) {
-			attr.addFlashAttribute("error", "Raid not found from boss <" + item.getBoss() + ">");
-		} else {
-			ItemDao dao = session.getMapper(ItemDao.class);
-			dao.create(item);
-			item.getClasses().stream()
-					.forEach(clazz -> dao.createItemAssignment(item.getId(), clazz));
-			attr.addFlashAttribute("message", "Item added");
-			session.commit();
-		}
+		ItemDao dao = session.getMapper(ItemDao.class);
+		dao.create(item);
+		item.getClasses().stream().forEach(clazz -> dao.createItemAssignment(item.getId(), clazz));
+		attr.addFlashAttribute("message", "Item added");
+		session.commit();
 		return "redirect:/admin";
 	}
 
