@@ -87,8 +87,10 @@ public class ItemJsonParser {
 		while (ite.hasNext() && classes.isEmpty()) {
 			JSONObject next = (JSONObject) ite.next();
 			if (next.has(LABEL) && next.getString(LABEL).startsWith(CLASSES__)) {
-				String values = next.getString(LABEL).substring(CLASSES__.length());
-				classes.add(PlayerClass.valueOf(values));
+				String[] values = next.getString(LABEL).substring(CLASSES__.length()).split(", ");
+				for (String value : values) {
+					classes.add(PlayerClass.valueOf(value));
+				}
 			}
 		}
 		if (classes.isEmpty()) {
@@ -101,6 +103,9 @@ public class ItemJsonParser {
 					classes.add(PlayerClass.Priest);
 					classes.add(PlayerClass.Warlock);
 				}
+				break;
+			case "Idol":
+				classes.add(PlayerClass.Druid);
 				break;
 			case "Leather":
 				classes.add(PlayerClass.Druid);

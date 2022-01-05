@@ -35,6 +35,7 @@ public class ArmoryController implements Serializable {
 			Arrays.asList(ItemSlot.Back), //
 			Arrays.asList(ItemSlot.Chest), //
 			Arrays.asList(ItemSlot.Wrist), //
+			Arrays.asList(ItemSlot.Hands), //
 			Arrays.asList(ItemSlot.Waist), //
 			Arrays.asList(ItemSlot.Legs), //
 			Arrays.asList(ItemSlot.Feet), //
