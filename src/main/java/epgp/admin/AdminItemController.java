@@ -36,11 +36,20 @@ public class AdminItemController {
 		item.getClasses().stream().forEach(clazz -> dao.createItemAssignment(item.getId(), clazz));
 		attr.addFlashAttribute("message", "Item added");
 		session.commit();
-		return "redirect:/admin";
+		return "redirect:/admin/edit-item/" + id;
 	}
 
 	@RequestMapping(value = "/admin/edit-item", method = RequestMethod.POST)
-	public ModelAndView openEditItem(@RequestParam(name = "id") int id) {
+	public ModelAndView openEditItemPost(@RequestParam(name = "id") int id) {
+		Item item = session.getMapper(ItemDao.class).readOne(id);
+		return new ModelAndView("edit-item").addObject("item", item) //
+				.addObject("playerclasses", PlayerClass.values()) //
+				.addObject("raids", RaidInstance.values()) //
+				.addObject("slots", ItemSlot.values());
+	}
+
+	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.GET)
+	public ModelAndView openEditItemGet(@PathVariable(name = "id") int id) {
 		Item item = session.getMapper(ItemDao.class).readOne(id);
 		return new ModelAndView("edit-item").addObject("item", item) //
 				.addObject("playerclasses", PlayerClass.values()) //

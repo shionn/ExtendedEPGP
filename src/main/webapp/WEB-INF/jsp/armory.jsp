@@ -26,7 +26,7 @@
 					<c:forEach items="${slots}" var="ss">
 						<td>
 							<c:forEach items="${a.items(ss)}" var="i">
-								<a href="#" data-wowhead="item=${i.id}&domain=classic"></a>
+								<t:wowhead item="${i}"/>
 							</c:forEach>
 						</td>
 					</c:forEach>
