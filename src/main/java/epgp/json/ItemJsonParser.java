@@ -95,6 +95,11 @@ public class ItemJsonParser {
 		}
 		if (classes.isEmpty()) {
 			switch (json.getString(SUBCLASS)) {
+			case "Axe":
+				classes.add(PlayerClass.Shaman);
+				classes.add(PlayerClass.Warrior);
+				classes.add(PlayerClass.Hunter);
+				break;
 			case "Cloth":
 				if (ItemSlot.Back.name().equals(json.getString(SLOT))) {
 					classes.addAll(Arrays.asList(PlayerClass.values()));
