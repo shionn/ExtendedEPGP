@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,18 +53,15 @@ public class RaidController implements Serializable {
 		return "redirect:/raid";
 	}
 
-	// @CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
-	// @RequestMapping(value = "/raid/update", method = RequestMethod.POST)
-	// public String updateRaid(@ModelAttribute("raid") Raid raid, RedirectAttributes attr) {
-	// RaidDao dao = session.getMapper(RaidDao.class);
-	// if (!raid.isRunning()) {
-	// dao.closeLootedWish(raid.getId());
-	// }
-	// dao.update(raid);
-	// session.commit();
-	// return "redirect:/raid";
-	// }
-	//
+	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
+	@RequestMapping(value = "/raid/update", method = RequestMethod.POST)
+	public String updateRaid(@ModelAttribute("raid") Raid raid, RedirectAttributes attr) {
+		RaidDao dao = session.getMapper(RaidDao.class);
+		dao.update(raid);
+		session.commit();
+		return "redirect:/raid";
+	}
+
 	// @RequestMapping(value = "/raid/edit/{id}", method = RequestMethod.GET)
 	// public String startEdit(@ModelAttribute("id") int id) {
 	// RaidDao dao = session.getMapper(RaidDao.class);

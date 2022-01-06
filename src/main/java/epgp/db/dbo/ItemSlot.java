@@ -3,6 +3,7 @@ package epgp.db.dbo;
 public enum ItemSlot {
 	TwoHand(1, "Arme a deux mains"),
 	MainHand(0.42, "Main principale"),
+	OneHand(0.42, "Arme a une main"),
 	HeldInOffhand(0.55, "Tenue en Main gauche"),
 	OffHand(0.55, "Main gauche"),
 	Shield(0.55, "Bouclier"),
@@ -21,10 +22,9 @@ public enum ItemSlot {
 	Legs(1, "Jambiere"),
 	Feet(0.777, "Botte"),
 	Finger(0.55, "Anneau"),
-	Trinket(0.7, "Bijou"),
+	Trinket(0.7, "Bijou");
 
 	// RangedWeapon(0.42, "Arme a distance"),
-	Weapon1h(0.42, "Arme a une main");
 
 	private double gpRatio;
 	private String fr;

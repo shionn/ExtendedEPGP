@@ -148,6 +148,12 @@ public class ItemJsonParser {
 				classes.add(PlayerClass.Warlock);
 				classes.add(PlayerClass.Warrior);
 				break;
+			case "Sword":
+				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Rogue);
+				classes.add(PlayerClass.Mage);
+				classes.add(PlayerClass.Warrior);
+				break;
 			case "Wand":
 				classes.add(PlayerClass.Mage);
 				classes.add(PlayerClass.Priest);
