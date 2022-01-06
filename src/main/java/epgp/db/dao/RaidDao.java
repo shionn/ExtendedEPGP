@@ -105,10 +105,10 @@ public interface RaidDao {
 	// + "SET pw.running = false "
 	// )
 	// public void closeLootedWish(@Param("raid") int raid);
-	//
-	// @Update("UPDATE raid SET running = true WHERE id = #{id}")
-	// public void startEdit(@Param("id") int id);
-	//
+
+	@Update("UPDATE raid SET running = true WHERE id = #{id}")
+	public void startEdit(@Param("id") int id);
+
 	// @Select("SELECT p.name AS player_name, " //
 	// + " p.rank AS player_rank, " //
 	// + " p.class AS player_class, " //
