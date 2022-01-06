@@ -22,7 +22,12 @@
 		<tbody>
 			<c:forEach items="${armories}" var="a">
 				<tr>
-					<td class="${a.player.clazz}">${a.player.name} <a href="<spring:url value="/armory/add/${a.player.id}"/>">+</a></td>
+					<td class="${a.player.clazz}">
+						<c:if test="${user.admin}">
+							<a class="pure-button button-success button-xsmall" href="<spring:url value="/armory/add/${a.player.id}"/>">+</a>
+						</c:if>
+						${a.player.name} 
+					</td>
 					<c:forEach items="${slots}" var="ss">
 						<td>
 							<c:forEach items="${a.items(ss)}" var="i">

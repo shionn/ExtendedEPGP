@@ -14,7 +14,9 @@
 							[${raid.instance}] ${raid.name}
 							<fmt:formatDate pattern="dd/MM/yyyy" value="${raid.date}"/>
 							(${raid.entries.size()})
-							<a href='<spring:url value="/raid/edit/${raid.id}"/>' class="pull-right fa fa-pencil"></a>
+							<c:if test="${user.admin}">
+								<a href='<spring:url value="/raid/edit/${raid.id}"/>' class="pull-right fa fa-pencil"></a>
+							</c:if>
 						</th>
 					</tr>
 				</thead>

@@ -16,7 +16,6 @@ public class RaidHistoricController {
 	@Autowired
 	private SqlSession session;
 
-	// @Cacheable(cacheNames = "historic", keyGenerator = "MethodNameKeyGenerator")
 	@RequestMapping(value = "/raid/historic", method = RequestMethod.GET)
 	public ModelAndView raids() {
 		RaidHistoricDao dao = session.getMapper(RaidHistoricDao.class);

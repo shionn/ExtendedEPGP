@@ -78,7 +78,6 @@ public class RaidController implements Serializable {
 		return new ModelAndView("raid-member").addObject("raid", raid);
 	}
 
-	// @CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/raid/edit/member/{id}", method = RequestMethod.POST)
 	public String editRaidMember(@PathVariable("id") int id, @ModelAttribute("raid") Raid raid) {
 		RaidDao dao = session.getMapper(RaidDao.class);
@@ -103,7 +102,6 @@ public class RaidController implements Serializable {
 						session.getMapper(ItemDao.class).listForRaidAndPlayer(raid, player));
 	}
 
-	// @CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.POST)
 	public String addRaidLoot(@PathVariable("raid") int raid, //
 			@PathVariable("player") int player, //
@@ -115,7 +113,6 @@ public class RaidController implements Serializable {
 		return "redirect:/raid";
 	}
 
-	// @CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/raid/loot/{raid}/{player}/{item}", method = RequestMethod.GET)
 	public String rmRaidLoot(@PathVariable("raid") int raid, @PathVariable("player") int player,
 			@PathVariable("item") int item) {

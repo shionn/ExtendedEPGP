@@ -11,8 +11,8 @@ public interface UserDao {
 	@Select("SELECT * FROM user WHERE email = #{email}")
 	User read(String email);
 
-	@Insert("INSERT INTO user (name, email, pass) VALUES ( #{name}, #{email}, #{pass})")
-	void create(@Param("name") String pseudo, @Param("email") String email,
+	@Insert("INSERT INTO user (email, pass) VALUES ( #{email}, #{pass})")
+	void create(@Param("email") String email,
 			@Param("pass") String pass);
 
 }

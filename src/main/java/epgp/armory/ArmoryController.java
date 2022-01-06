@@ -97,30 +97,5 @@ public class ArmoryController implements Serializable {
 		return "redirect:/armory";
 	}
 
-	//
-	// @RequestMapping(value = "/armory/{player}/{item}", method = RequestMethod.GET)
-	// public String toggle(@PathVariable("player") int player, @PathVariable("item") int item) {
-	// ArmoryDao dao = session.getMapper(ArmoryDao.class);
-	// if (dao.isPlayerStuff(player, item)) {
-	// dao.removePlayerStuff(player, item);
-	// } else {
-	// dao.addPlayerStuff(player, item);
-	// }
-	// session.commit();
-	// return "redirect:/armory";
-	// }
-	//
-	// @RequestMapping(value = "/armory/all", method = RequestMethod.GET)
-	// public String resetFilter() {
-	// this.raid = null;
-	// this.clazz = null;
-	// return "redirect:/armory";
-	// }
-	//
-	// @RequestMapping(value = "/armory/raid/{raid}", method = RequestMethod.GET)
-	// public String filterRaid(@PathVariable("raid") RaidInstance raid) {
-	// this.raid = raid;
-	// return "redirect:/armory";
-	// }
 
 }

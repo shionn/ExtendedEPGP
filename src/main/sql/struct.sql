@@ -1,3 +1,12 @@
+CREATE TABLE `user` (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  email varchar(128) NOT NULL UNIQUE,
+  pass varchar(256) NOT NULL,
+  role varchar(128) DEFAULT NULL,
+  PRIMARY KEY (id)
+) DEFAULT CHARACTER SET=utf8;
+
+
 CREATE TABLE player (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(64) NOT NULL UNIQUE,

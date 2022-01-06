@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	private static final String REALM_NAME = "ExtendedEPGP";
 
 	@Autowired
 	private AuthenticationProvider provider;
@@ -27,6 +28,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/**").anonymous();
+		admin(http, "/admin/**");
+		admin(http, "/armory/add/**");
+		admin(http, "/raid/add/**");
+		admin(http, "/raid/update/**");
+		admin(http, "/raid/edit/**");
+		admin(http, "/raid/loot/**");
+	}
+
+	private void admin(HttpSecurity http, String path) throws Exception {
+		http.authorizeRequests().antMatchers(path).hasRole("ADMIN").and().httpBasic()
+				.realmName(REALM_NAME);
+
 	}
 }
