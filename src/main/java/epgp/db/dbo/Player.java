@@ -1,5 +1,7 @@
 package epgp.db.dbo;
 
+import java.util.List;
+
 public class Player {
 
 	private int id;
@@ -7,6 +9,8 @@ public class Player {
 	private PlayerClass clazz;
 	private int main;
 	private boolean enable;
+	private EpGp epgp;
+	private List<RaidAttendance> attendances;
 
 	public int getId() {
 		return id;
@@ -46,6 +50,22 @@ public class Player {
 
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	public EpGp getEpgp() {
+		return epgp;
+	}
+
+	public void setEpgp(EpGp epgp) {
+		this.epgp = epgp;
+	}
+
+	public List<RaidAttendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(List<RaidAttendance> attendances) {
+		this.attendances = attendances;
 	}
 
 }

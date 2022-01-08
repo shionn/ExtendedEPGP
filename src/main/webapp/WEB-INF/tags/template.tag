@@ -47,6 +47,7 @@
 				<a href="#" class="pure-menu-link">Joueurs</a>
 				<ul class="pure-menu-children">
 					<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
+					<li class="pure-menu-item"><a href='<spring:url value="/player/statistic"/>' class="pure-menu-link">Statistique</a></li>
 				</ul>
 			</li>
 <%-- 			<c:if test="${user.mdc}"> --%>

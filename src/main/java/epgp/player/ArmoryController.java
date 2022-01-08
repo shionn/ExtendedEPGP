@@ -1,4 +1,4 @@
-package epgp.armory;
+package epgp.player;
 
 import java.io.Serializable;
 import java.util.Arrays;
