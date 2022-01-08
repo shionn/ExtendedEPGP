@@ -62,7 +62,7 @@ public interface RaidDao {
 			+ "FROM player AS p " //
 			+ "LEFT JOIN raid_entry AS r ON  r.player = p.id "
 			+ "                          AND r.raid   = #{raid} " //
-			+ "WHERE true " //
+			+ "WHERE p.enable is true " //
 			+ "ORDER BY class, name ")
 	@Results({
 			@Result(column = "id", property = "player.id"),

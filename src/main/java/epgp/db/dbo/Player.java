@@ -6,6 +6,7 @@ public class Player {
 	private String name;
 	private PlayerClass clazz;
 	private int main;
+	private boolean enable;
 
 	public int getId() {
 		return id;
@@ -38,4 +39,13 @@ public class Player {
 	public void setMain(int main) {
 		this.main = main;
 	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
 }

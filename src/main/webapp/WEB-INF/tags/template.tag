@@ -43,10 +43,15 @@
 					<li class="pure-menu-item"><a href='<spring:url value="/raid/historic"/>' class="pure-menu-link">Historic</a></li>
 				</ul>
 			</li>
+			<li class="pure-menu-item pure-menu-has-children">
+				<a href="#" class="pure-menu-link">Joueurs</a>
+				<ul class="pure-menu-children">
+					<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
+				</ul>
+			</li>
 <%-- 			<c:if test="${user.mdc}"> --%>
 <%-- 				<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li> --%>
 <%-- 			</c:if> --%>
-			<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
 <%-- 			<c:if test="${user.admin}"><li class="pure-menu-item" style="color: red">ADMIN</li></c:if> --%>
 <%-- 			<c:if test="${user.mdc and not user.admin}"><li class="pure-menu-item" style="color: red">MDC</li></c:if> --%>

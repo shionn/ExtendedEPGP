@@ -45,11 +45,13 @@ public class AdminPlayerController {
 	@RequestMapping(value = "/admin/edit-player/{id}", method = RequestMethod.POST)
 	public String editPlayer(@PathVariable(name = "id") int id,
 			@RequestParam(name = "class") PlayerClass clazz,
-			@RequestParam(name = "name") String name) {
+			@RequestParam(name = "name") String name,
+			@RequestParam(name = "enable", defaultValue = "false") boolean enable) {
 		PlayerDao dao = session.getMapper(PlayerDao.class);
 		Player player = dao.readOne(id);
 		player.setName(name);
 		player.setClazz(clazz);
+		player.setEnable(enable);
 		dao.updatePlayer(player);
 		session.commit();
 		return "redirect:/admin";

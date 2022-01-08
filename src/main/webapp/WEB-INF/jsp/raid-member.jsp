@@ -7,10 +7,10 @@
 <t:template>
 	<jsp:attribute name="content">
 			<form:form method="POST" class="pure-form pure-form-aligned" modelAttribute="raid">
-				<fieldset>
+				<fieldset style="width:400px">
 					<legend>Participant ${raid.name}</legend>
 							<c:forEach items="${raid.entries}" var="p" varStatus="s">
-								<div class="pure-g" style="width:400px">
+								<div class="pure-g ${p.player.clazz}">
 									<input type="hidden" name="entries[${s.index}].player.id" value="${p.player.id}">
 									<label class="pure-u-1-2">
 										<input type="checkbox" name="entries[${s.index}].member" <c:if test="${p.member}"> checked="checked"</c:if>>

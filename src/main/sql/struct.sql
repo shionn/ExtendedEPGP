@@ -13,6 +13,7 @@ CREATE TABLE player (
   class varchar(16) NOT NULL,
   PRIMARY KEY (id)
 ) DEFAULT CHARACTER SET=utf8;
+ALTER TABLE `player` ADD `enable` BOOLEAN NOT NULL DEFAULT TRUE AFTER `class`; 
 
 CREATE TABLE item (
   id int(11) NOT NULL,

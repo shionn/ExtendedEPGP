@@ -45,7 +45,7 @@ public interface PlayerDao {
 	// List<PlayerWish> listWishes();
 	//
 	@Update("UPDATE player " //
-			+ "SET name = #{name}, class = #{clazz} " //
+			+ "SET name = #{name}, class = #{clazz}, enable = #{enable} " //
 			+ "WHERE id = #{id}")
 	int updatePlayer(Player player);
 }

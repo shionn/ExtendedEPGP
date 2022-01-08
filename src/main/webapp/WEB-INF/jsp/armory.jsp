@@ -7,9 +7,17 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 <jsp:attribute name="content">
-	<c:forEach items="${classes}" var="cl">
-		<a href="<spring:url value="/armory/toggle-class/${cl}"/>" style="color: ${form.getLinkColor(cl)}">${cl}</a>
-	</c:forEach>
+	<form>
+		<fieldset>
+			<legend>Armurerie</legend>
+			<c:forEach items="${classes}" var="cl">
+				<a href="<spring:url value="/armory/toggle-class/${cl}"/>" style="color: ${form.getLinkColor(cl)}">
+					<img class="class" src='<spring:url value="/img/${cl}.jpg"/>'/>
+					${cl}
+				</a>
+			</c:forEach>
+		</fieldset>
+	</form>
 	<table class="pure-table pure-table-horizontal">
 		<thead>
 			<tr>

@@ -22,6 +22,12 @@
 				</select>
 			</div>
 			<div class="pure-controls">
+				<label for="enable">
+					<input type="checkbox" name="enable" <c:if test="${player.enable}"> checked="checked"</c:if>>
+					Actif.
+				</label>
+			</div>
+			<div class="pure-controls">
 				<button type="submit" class="pure-button pure-button-primary">Valider</button>
 			</div>
 		</fieldset>
