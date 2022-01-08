@@ -55,7 +55,6 @@ public class ArmoryController implements Serializable {
 				.addObject("form", form) //
 				.addObject("classes", PlayerClass.values()) //
 				.addObject("slots", SLOTS) //
-				.addObject("players", session.getMapper(PlayerDao.class).listAllPlayers())
 				.addObject("armories", session.getMapper(ArmoryDao.class).list(form.getClasses()));
 	}
 

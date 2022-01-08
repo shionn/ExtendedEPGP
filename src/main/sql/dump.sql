@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 06, 2022 at 05:21 PM
+-- Generation Time: Jan 08, 2022 at 11:10 AM
 -- Server version: 10.5.12-MariaDB-0+deb11u1
 -- PHP Version: 7.4.25
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `epgp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `epgp`
+-- (See below for the actual view)
+--
+CREATE TABLE `epgp` (
+`player` int(11)
+,`name` varchar(64)
+,`ep` bigint(17)
+,`gp` double(17,0)
+,`epgp_ratio` double(21,4)
+);
 
 -- --------------------------------------------------------
 
@@ -92,9 +106,21 @@ INSERT INTO `item` (`id`, `raid`, `boss`, `ilvl`, `slot`, `pt`, `pt_ratio`, `nam
 (16860, 'MC', 'Gehennas', 66, 'Hands', 1692, 50, 'Gantelets judiciaires'),
 (16861, 'MC', 'Trash', 66, 'Wrist', 2395, 100, 'Brassards de puissance'),
 (16863, 'MC', 'Lucifron', 66, 'Hands', 3384, 100, 'Gantelets de puissance'),
+(16900, 'Boss', 'Onyxia', 76, 'Head', 5776, 100, 'Couvre-chef de Stormrage'),
+(16908, 'Boss', 'Onyxia', 76, 'Head', 5776, 100, 'Cagoule Rougecroc'),
+(16914, 'None', 'Onyxia', 76, 'Head', 5776, 100, 'Couronne de Vent du néant'),
 (16921, 'Boss', 'Onyxia', 76, 'Head', 5776, 100, 'Auréole de transcendance'),
+(16929, 'Boss', 'Onyxia', 76, 'Head', 5776, 100, 'Crâne de Némésis'),
+(16939, 'Boss', 'Onyxia', 76, 'Head', 5776, 100, 'Casque de traqueur de dragon'),
+(16955, 'None', 'Onyxia', 76, 'Head', 5776, 100, 'Couronne du jugement'),
+(16963, 'Boss', 'Onyxia', 76, 'Head', 5776, 100, 'Heaume de courroux'),
+(17067, 'None', 'Onyxia', 76, 'HeldInOffhand', 3176, 100, 'Ancien Grimoire de Cornerstone'),
+(17068, 'Boss', 'Onyxia', 75, 'OneHand', 2362, 100, 'Porte-mort'),
 (17073, 'MC', 'Magmadar', 66, 'TwoHand', 4356, 100, 'Trembleterre'),
+(17075, 'Boss', 'Onyxia', 74, 'OneHand', 2299, 100, 'Vis\'kag le Saigneur'),
+(17078, 'Boss', 'Onyxia', 72, 'Back', 2851, 100, 'Drapé de Saphiron'),
 (17105, 'MC', 'Garr', 69, 'MainHand', 1999, 100, 'Marteau d\'Aurastone'),
+(18205, 'Boss', 'Onyxia', 71, 'Neck', 2772, 100, 'Collier d\'Eskhandar'),
 (18309, 'None', 'Alzzin the Wildshaper', 59, 'Hands', 2704, 100, 'Gants de restauration'),
 (18317, 'None', 'Hydrospawn', 58, 'Neck', 1850, 100, 'Talisman de tempête'),
 (18318, 'None', 'Alzzin the Wildshaper', 59, 'Feet', 2704, 100, 'Grèves miséricordieuses'),
@@ -118,6 +144,7 @@ INSERT INTO `item` (`id`, `raid`, `boss`, `ilvl`, `slot`, `pt`, `pt_ratio`, `nam
 (18723, 'None', 'Ramstein the Gorger', 62, 'Neck', 2114, 100, 'Chaîne de cou animée'),
 (18727, 'None', 'Magistrate Barthilas', 59, 'Head', 3481, 100, 'Chapeau de feutre cramoisi'),
 (18810, 'MC', 'Majordomo Executus', 71, 'Shoulder', 7833, 200, 'Spallières de croissance sauvage'),
+(18813, 'Boss', 'Onyxia', 73, 'Finger', 2930, 100, 'Anneau de lien'),
 (18832, 'MC', 'Garr', 70, 'OneHand', 4116, 200, 'Lame de brutalité'),
 (18875, 'MC', 'Trash', 64, 'Legs', 8192, 200, 'Pantalon en écailles de salamandre'),
 (19098, 'None', 'None', 60, 'Neck', 1980, 100, 'Pendentif de sage stormpike'),
@@ -185,8 +212,12 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (16714, 'Druid'),
 (16830, 'Druid'),
 (16835, 'Druid'),
+(16900, 'Druid'),
+(17067, 'Druid'),
 (17073, 'Druid'),
+(17078, 'Druid'),
 (17105, 'Druid'),
+(18205, 'Druid'),
 (18309, 'Druid'),
 (18317, 'Druid'),
 (18327, 'Druid'),
@@ -202,6 +233,7 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (18723, 'Druid'),
 (18727, 'Druid'),
 (18810, 'Druid'),
+(18813, 'Druid'),
 (18875, 'Druid'),
 (19098, 'Druid'),
 (19312, 'Druid'),
@@ -217,6 +249,7 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (22407, 'Druid'),
 (10659, 'Hunter'),
 (16849, 'Hunter'),
+(16939, 'Hunter'),
 (18723, 'Hunter'),
 (10213, 'Mage'),
 (10659, 'Mage'),
@@ -231,6 +264,9 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (13345, 'Mage'),
 (13938, 'Mage'),
 (13968, 'Mage'),
+(16914, 'Mage'),
+(17067, 'Mage'),
+(17078, 'Mage'),
 (18317, 'Mage'),
 (18526, 'Mage'),
 (18723, 'Mage'),
@@ -266,8 +302,11 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (16858, 'Paladin'),
 (16859, 'Paladin'),
 (16860, 'Paladin'),
+(16955, 'Paladin'),
+(17067, 'Paladin'),
 (17073, 'Paladin'),
 (17105, 'Paladin'),
+(18205, 'Paladin'),
 (18309, 'Paladin'),
 (18317, 'Paladin'),
 (18318, 'Paladin'),
@@ -287,6 +326,7 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (18723, 'Paladin'),
 (18727, 'Paladin'),
 (18810, 'Paladin'),
+(18813, 'Paladin'),
 (18875, 'Paladin'),
 (19098, 'Paladin'),
 (19312, 'Paladin'),
@@ -328,6 +368,8 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (16814, 'Priest'),
 (16819, 'Priest'),
 (16921, 'Priest'),
+(17067, 'Priest'),
+(17078, 'Priest'),
 (17105, 'Priest'),
 (18317, 'Priest'),
 (18327, 'Priest'),
@@ -361,6 +403,9 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (22406, 'Priest'),
 (10659, 'Rogue'),
 (16822, 'Rogue'),
+(16908, 'Rogue'),
+(17075, 'Rogue'),
+(18205, 'Rogue'),
 (18723, 'Rogue'),
 (18832, 'Rogue'),
 (10659, 'Shaman'),
@@ -390,8 +435,12 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (14548, 'Shaman'),
 (15061, 'Shaman'),
 (16058, 'Shaman'),
+(17067, 'Shaman'),
+(17068, 'Shaman'),
 (17073, 'Shaman'),
+(17078, 'Shaman'),
 (17105, 'Shaman'),
+(18205, 'Shaman'),
 (18309, 'Shaman'),
 (18317, 'Shaman'),
 (18318, 'Shaman'),
@@ -432,6 +481,8 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (13345, 'Warlock'),
 (13938, 'Warlock'),
 (13968, 'Warlock'),
+(16929, 'Warlock'),
+(17078, 'Warlock'),
 (18317, 'Warlock'),
 (18526, 'Warlock'),
 (18723, 'Warlock'),
@@ -441,9 +492,14 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 (12633, 'Warrior'),
 (16861, 'Warrior'),
 (16863, 'Warrior'),
+(16963, 'Warrior'),
+(17068, 'Warrior'),
 (17073, 'Warrior'),
+(17075, 'Warrior'),
+(18205, 'Warrior'),
 (18702, 'Warrior'),
 (18723, 'Warrior'),
+(18813, 'Warrior'),
 (18832, 'Warrior');
 
 -- --------------------------------------------------------
@@ -455,62 +511,102 @@ INSERT INTO `item_assignment` (`item`, `class`) VALUES
 CREATE TABLE `player` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `class` varchar(16) NOT NULL
+  `class` varchar(16) NOT NULL,
+  `enable` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`id`, `name`, `class`) VALUES
-(1, 'Galyenai', 'Priest'),
-(2, 'Sancti', 'Paladin'),
-(3, 'Gifflemoi', 'Paladin'),
-(4, 'Ivori', 'Druid'),
-(5, 'Noireneige', 'Priest'),
-(6, 'Hexarium', 'Priest'),
-(7, 'Ticlin', 'Priest'),
-(8, 'Udico', 'Warrior'),
-(9, 'Timi', 'Warrior'),
-(10, 'Unaviable', 'Druid'),
-(11, 'Sikaro', 'Warrior'),
-(12, 'Hipsa', 'Warrior'),
-(13, 'Tomahte', 'Warrior'),
-(14, 'Titijack', 'Warrior'),
-(15, 'Anthony', 'Warrior'),
-(16, 'Zrale', 'Rogue'),
-(17, 'Skybao', 'Rogue'),
-(18, 'Khuzdul', 'Rogue'),
-(19, 'Manolito', 'Rogue'),
-(20, 'Drosvarg', 'Rogue'),
-(21, 'Lakokett', 'Hunter'),
-(22, 'Nokorz', 'Hunter'),
-(24, 'Artec', 'Hunter'),
-(25, 'Exola', 'Mage'),
-(26, 'Jobel', 'Mage'),
-(27, 'Bruja', 'Mage'),
-(28, 'Phoceen', 'Mage'),
-(29, 'Altah', 'Mage'),
-(30, 'Galyen', 'Mage'),
-(31, 'Archibad', 'Warlock'),
-(32, 'Nordvpn', 'Warlock'),
-(33, 'Malox', 'Warlock'),
-(34, 'Akali', 'Warlock'),
-(36, 'Cyclope', 'Druid'),
-(37, 'Laszéfir (Xena)', 'Paladin'),
-(38, 'Courgettev', 'Paladin'),
-(39, 'Belouange', 'Paladin'),
-(40, 'Nicororo', 'Paladin'),
-(41, 'Aspirine', 'Druid'),
-(42, 'Xientor', 'Druid'),
-(43, 'Cortex', 'Mage'),
-(44, 'Mauldark', 'Rogue'),
-(45, 'Laykka', 'Mage'),
-(47, 'Incolas', 'Paladin'),
-(48, 'Seuny', 'Paladin'),
-(49, 'Wiplitos', 'Paladin'),
-(51, 'Arakam', 'Hunter'),
-(52, 'Palotte', 'Warrior');
+INSERT INTO `player` (`id`, `name`, `class`, `enable`) VALUES
+(1, 'Galyenai', 'Priest', 1),
+(2, 'Sancti', 'Paladin', 1),
+(3, 'Gifflemoi', 'Paladin', 1),
+(4, 'Ivori', 'Druid', 1),
+(5, 'Noireneige', 'Priest', 1),
+(6, 'Hexarium', 'Priest', 1),
+(7, 'Ticlin', 'Priest', 1),
+(8, 'Udico', 'Warrior', 1),
+(9, 'Timi', 'Warrior', 1),
+(10, 'Unaviable', 'Druid', 1),
+(11, 'Sikaro', 'Warrior', 1),
+(12, 'Hipsa', 'Warrior', 1),
+(13, 'Tomahte', 'Warrior', 1),
+(14, 'Titijack', 'Warrior', 1),
+(15, 'Anthony', 'Warrior', 1),
+(16, 'Zrale', 'Rogue', 1),
+(17, 'Skybao', 'Rogue', 1),
+(18, 'Khuzdul', 'Rogue', 1),
+(19, 'Manolito', 'Rogue', 1),
+(20, 'Drosvarg', 'Rogue', 1),
+(21, 'Lakokett', 'Hunter', 1),
+(22, 'Nokorz', 'Hunter', 1),
+(24, 'Artec', 'Hunter', 1),
+(25, 'Exola', 'Mage', 1),
+(26, 'Jobel', 'Mage', 1),
+(27, 'Bruja', 'Mage', 0),
+(28, 'Phoceen', 'Mage', 1),
+(29, 'Altah', 'Mage', 1),
+(30, 'Galyen', 'Mage', 1),
+(31, 'Archibad', 'Warlock', 1),
+(32, 'Nordvpn', 'Warlock', 1),
+(33, 'Malox', 'Warlock', 1),
+(34, 'Akali', 'Warlock', 1),
+(36, 'Cyclope', 'Druid', 1),
+(37, 'Laszéfir (Xena)', 'Paladin', 1),
+(38, 'Courgettev', 'Paladin', 0),
+(39, 'Belouange', 'Paladin', 1),
+(40, 'Nicororo', 'Paladin', 1),
+(41, 'Aspirine', 'Druid', 1),
+(42, 'Xientor', 'Druid', 1),
+(43, 'Cortex', 'Mage', 1),
+(44, 'Mauldark', 'Rogue', 1),
+(45, 'Laykka', 'Mage', 1),
+(47, 'Incolas', 'Paladin', 1),
+(48, 'Seuny', 'Paladin', 1),
+(49, 'Wiplitos', 'Paladin', 1),
+(51, 'Arakam', 'Hunter', 1),
+(52, 'Palotte', 'Warrior', 1),
+(53, 'Haldus', 'Mage', 1),
+(56, 'Trygain', 'Rogue', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `player_ep`
+-- (See below for the actual view)
+--
+CREATE TABLE `player_ep` (
+`player` int(11)
+,`name` varchar(64)
+,`ep` bigint(17)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `player_gp`
+-- (See below for the actual view)
+--
+CREATE TABLE `player_gp` (
+`player` int(11)
+,`player_name` varchar(64)
+,`gp` double(17,0)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `player_last_loot`
+-- (See below for the actual view)
+--
+CREATE TABLE `player_last_loot` (
+`player` int(11)
+,`name` varchar(64)
+,`loot_date` datetime
+,`attribution` varchar(32)
+);
 
 -- --------------------------------------------------------
 
@@ -716,8 +812,22 @@ CREATE TABLE `raid` (
 --
 
 INSERT INTO `raid` (`id`, `name`, `instance`, `date`, `running`) VALUES
-(1, 'Armory', 'Dungeon', '2022-01-04 16:13:54', 0),
-(2, 'First Full Guilde ou Presque', 'MC', '2022-01-05 00:00:00', 1);
+(2, 'First Full Guilde ou Presque', 'MC', '2022-01-05 00:00:00', 0),
+(3, 'Onyxia mi pu', 'Boss', '2022-01-06 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `raid_attendance`
+-- (See below for the actual view)
+--
+CREATE TABLE `raid_attendance` (
+`player` int(11)
+,`name` varchar(64)
+,`instance` varchar(8)
+,`period` varchar(6)
+,`attendance` decimal(23,0)
+);
 
 -- --------------------------------------------------------
 
@@ -776,7 +886,141 @@ INSERT INTO `raid_entry` (`raid`, `player`, `bench`, `absent`) VALUES
 (2, 48, 0, 0),
 (2, 49, 0, 0),
 (2, 51, 0, 0),
-(2, 52, 0, 0);
+(2, 52, 0, 0),
+(3, 1, 0, 0),
+(3, 2, 0, 0),
+(3, 5, 0, 0),
+(3, 7, 0, 0),
+(3, 8, 0, 0),
+(3, 11, 0, 0),
+(3, 18, 0, 0),
+(3, 20, 0, 0),
+(3, 26, 0, 0),
+(3, 29, 0, 0),
+(3, 31, 0, 0),
+(3, 32, 0, 0),
+(3, 37, 0, 0),
+(3, 41, 0, 0),
+(3, 42, 0, 0),
+(3, 44, 0, 0),
+(3, 45, 0, 0),
+(3, 51, 0, 0),
+(3, 52, 0, 0),
+(3, 53, 0, 0),
+(3, 56, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `raid_ep`
+-- (See below for the actual view)
+--
+CREATE TABLE `raid_ep` (
+`raid` int(11)
+,`name` varchar(128)
+,`instance` varchar(8)
+,`date` datetime
+,`size` bigint(21)
+,`week_ago` int(6)
+,`initial_ep` decimal(32,0)
+,`ep` double(17,0)
+,`initial_ep_per_player` bigint(21)
+,`ep_per_player` bigint(17)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `raid_size`
+-- (See below for the actual view)
+--
+CREATE TABLE `raid_size` (
+`raid` int(11)
+,`size` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `pass` varchar(256) NOT NULL,
+  `role` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `pass`, `role`) VALUES
+(1, 'shionn@gmail.com', 'ed453ddf63a61d059c415674b8934606b54a15b4bcb79553ffe11dbf130f158b', 'ROLE_ADMIN');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `epgp`
+--
+DROP TABLE IF EXISTS `epgp`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `epgp`  AS SELECT `ep`.`player` AS `player`, `ep`.`name` AS `name`, `ep`.`ep` AS `ep`, `gp`.`gp` AS `gp`, `gp`.`gp`/ `ep`.`ep` AS `epgp_ratio` FROM (`player_ep` `ep` left join `player_gp` `gp` on(`gp`.`player` = `ep`.`player`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `player_ep`
+--
+DROP TABLE IF EXISTS `player_ep`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `player_ep`  AS SELECT `p`.`id` AS `player`, `p`.`name` AS `name`, `ep`.`ep_per_player` AS `ep` FROM ((`player` `p` join `raid_entry` `re` on(`p`.`id` = `re`.`player`)) join `raid_ep` `ep` on(`re`.`raid` = `ep`.`raid`)) GROUP BY `re`.`player` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `player_gp`
+--
+DROP TABLE IF EXISTS `player_gp`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `player_gp`  AS SELECT `p`.`id` AS `player`, `p`.`name` AS `player_name`, sum(round(`i`.`pt` * pow(0.9,(to_days(curdate()) - to_days(`r`.`date`)) DIV 7),0)) AS `gp` FROM (((`player` `p` join `player_loot` `pl` on(`p`.`id` = `pl`.`player` and (`pl`.`attribution` = 'primary' or `pl`.`attribution` = 'wishList'))) join `raid` `r` on(`r`.`id` = `pl`.`raid`)) join `item` `i` on(`i`.`id` = `pl`.`item`)) GROUP BY `pl`.`player` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `player_last_loot`
+--
+DROP TABLE IF EXISTS `player_last_loot`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `player_last_loot`  AS SELECT `e`.`player` AS `player`, `p`.`name` AS `name`, max(`r`.`date`) AS `loot_date`, `l`.`attribution` AS `attribution` FROM (((`raid` `r` join `raid_entry` `e` on(`r`.`id` = `e`.`raid`)) join `player_loot` `l` on(`r`.`id` = `l`.`raid` and `l`.`player` = `e`.`player`)) join `player` `p` on(`p`.`id` = `l`.`player`)) GROUP BY `e`.`player`, `l`.`attribution` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `raid_attendance`
+--
+DROP TABLE IF EXISTS `raid_attendance`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `raid_attendance`  AS  (select `p`.`id` AS `player`,`p`.`name` AS `name`,`r`.`instance` AS `instance`,'always' AS `period`,sum(1) AS `attendance` from ((`player` `p` join `raid_entry` `re` on(`p`.`id` = `re`.`player`)) join `raid` `r` on(`r`.`id` = `re`.`raid`)) group by `re`.`player`,`r`.`instance`) union (select `p`.`id` AS `player`,`p`.`name` AS `name`,`r`.`instance` AS `instance`,'day28' AS `period`,sum(1) AS `attendance` from ((`player` `p` join `raid_entry` `re` on(`p`.`id` = `re`.`player`)) join `raid` `r` on(`r`.`id` = `re`.`raid` and `r`.`date` >= cast(current_timestamp() - interval 28 day as date))) group by `re`.`player`,`r`.`instance`) union (select `p`.`id` AS `player`,`p`.`name` AS `name`,`r`.`instance` AS `instance`,'day14' AS `period`,sum(1) AS `attendance` from ((`player` `p` join `raid_entry` `re` on(`p`.`id` = `re`.`player`)) join `raid` `r` on(`r`.`id` = `re`.`raid` and `r`.`date` >= cast(current_timestamp() - interval 14 day as date))) group by `re`.`player`,`r`.`instance`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `raid_ep`
+--
+DROP TABLE IF EXISTS `raid_ep`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `raid_ep`  AS SELECT `r`.`id` AS `raid`, `r`.`name` AS `name`, `r`.`instance` AS `instance`, `r`.`date` AS `date`, `rs`.`size` AS `size`, (to_days(curdate()) - to_days(`r`.`date`)) DIV 7 AS `week_ago`, sum(`i`.`pt`) AS `initial_ep`, round(sum(`i`.`pt`) * pow(0.9,(to_days(curdate()) - to_days(`r`.`date`)) DIV 7),0) AS `ep`, sum(`i`.`pt`) DIV `rs`.`size` AS `initial_ep_per_player`, round(sum(`i`.`pt`) * pow(0.9,(to_days(curdate()) - to_days(`r`.`date`)) DIV 7),0) DIV `rs`.`size` AS `ep_per_player` FROM (((`raid` `r` join `raid_size` `rs` on(`r`.`id` = `rs`.`raid`)) join `player_loot` `pl` on(`r`.`id` = `pl`.`raid` and (`pl`.`attribution` = 'primary' or `pl`.`attribution` = 'wishList'))) join `item` `i` on(`i`.`id` = `pl`.`item`)) GROUP BY `r`.`id` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `raid_size`
+--
+DROP TABLE IF EXISTS `raid_size`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `raid_size`  AS SELECT `r`.`id` AS `raid`, count(`e`.`player`) AS `size` FROM (`raid` `r` join `raid_entry` `e` on(`r`.`id` = `e`.`raid` and `e`.`bench` is false and `e`.`absent` is false)) GROUP BY `e`.`raid` ;
 
 --
 -- Indexes for dumped tables
@@ -824,6 +1068,13 @@ ALTER TABLE `raid_entry`
   ADD KEY `player` (`player`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -831,13 +1082,19 @@ ALTER TABLE `raid_entry`
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `raid`
 --
 ALTER TABLE `raid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

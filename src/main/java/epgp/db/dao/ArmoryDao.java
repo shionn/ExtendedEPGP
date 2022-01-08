@@ -16,7 +16,7 @@ import epgp.db.dbo.PlayerClass;
 public interface ArmoryDao {
 
 	@Select("<script>SELECT * FROM player " //
-			+ "WHERE true " //
+			+ "WHERE enable is true " //
 			+ "  <if test='!classes.isEmpty()'>"
 			+ "    AND class IN <foreach item='c' collection='classes' open='(' separator=',' close=')'>#{c}</foreach>"
 			+ "  </if> " //
