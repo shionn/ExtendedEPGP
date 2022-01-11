@@ -50,9 +50,7 @@
 					<li class="pure-menu-item"><a href='<spring:url value="/player/statistic"/>' class="pure-menu-link">Statistique</a></li>
 				</ul>
 			</li>
-<%-- 			<c:if test="${user.mdc}"> --%>
-<%-- 				<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li> --%>
-<%-- 			</c:if> --%>
+			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
 <%-- 			<c:if test="${user.admin}"><li class="pure-menu-item" style="color: red">ADMIN</li></c:if> --%>
 <%-- 			<c:if test="${user.mdc and not user.admin}"><li class="pure-menu-item" style="color: red">MDC</li></c:if> --%>

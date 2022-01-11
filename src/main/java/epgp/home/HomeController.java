@@ -1,10 +1,19 @@
 package epgp.home;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
+
+import epgp.db.dao.ItemDao;
+import epgp.db.dbo.Item;
+import epgp.db.dbo.RaidInstance;
 
 /**
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
@@ -16,6 +25,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestScope
 public class HomeController {
 
+	@Autowired
+	private SqlSession session;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "redirect:/armory";
@@ -23,7 +35,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ModelAndView info() {
-		return new ModelAndView("info");
+		List< List<Item>> itemss = new ArrayList<>();
+		itemss.add(session.getMapper(ItemDao.class).listForRaid(RaidInstance.MC));
+		itemss.add(session.getMapper(ItemDao.class).listForRaid(RaidInstance.Boss));
+		return new ModelAndView("info") //
+				.addObject("itemss", itemss);
 	}
 
 }

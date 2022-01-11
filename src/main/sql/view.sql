@@ -1,3 +1,4 @@
+-- joueur
 CREATE OR REPLACE VIEW player_last_loot AS
 SELECT e.player, p.name, MAX(r.date) AS loot_date, l.attribution
 FROM       raid        AS r
@@ -6,6 +7,34 @@ INNER JOIN player_loot AS l ON r.id = l.raid   AND l.player = e.player
 INNER JOIN player      AS p ON p.id = l.player
 GROUP BY player, attribution;
 
+CREATE OR REPLACE VIEW player_nb_raid_without_loot AS (
+	SELECT e.player, 'wishList' AS attribution, count(e.raid) AS nb_raid, MAX(r.date) AS loot_date
+	FROM       raid       AS r
+	INNER JOIN raid_entry AS e ON e.raid = r.id
+	WHERE r.date > (SELECT loot_date FROM player_last_loot AS pll WHERE pll.player = e.player AND pll.attribution = 'wishList')
+	GROUP BY player
+) UNION (
+	SELECT e.player, 'primary' AS attribution, count(e.raid) AS nb_raid, MAX(r.date) AS loot_date
+	FROM       raid       AS r
+	INNER JOIN raid_entry AS e ON e.raid = r.id
+	WHERE r.date > (SELECT loot_date FROM player_last_loot AS pll WHERE pll.player = e.player AND pll.attribution = 'primary')
+	GROUP BY player
+) UNION (
+	SELECT e.player, 'secondary' AS attribution, count(e.raid) AS nb_raid, MAX(r.date) AS loot_date
+	FROM       raid       AS r
+	INNER JOIN raid_entry AS e ON e.raid = r.id
+	WHERE r.date > (SELECT loot_date FROM player_last_loot AS pll WHERE pll.player = e.player AND pll.attribution = 'secondary')
+	GROUP BY player
+);
+
+
+CREATE OR REPLACE VIEW player_nb_raid AS
+SELECT  e.player, count(e.raid) AS nb_raid
+FROM   raid_entry    AS e
+GROUP BY player;
+
+
+-- raid
 CREATE OR REPLACE VIEW raid_size AS
 SELECT r.id AS raid, count(e.player) AS size
 FROM       raid       AS r
@@ -34,6 +63,7 @@ CREATE OR REPLACE VIEW raid_attendance AS
 	                     AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 14 DAY))
 	GROUP BY player, instance
 );
+
 -- epgp --
 CREATE OR REPLACE VIEW raid_ep AS
 SELECT r.id AS raid, r.name, r.instance, r.date, rs.size,

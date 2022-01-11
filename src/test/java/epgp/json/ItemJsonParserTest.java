@@ -2,6 +2,8 @@ package epgp.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import epgp.db.dbo.Item;
@@ -12,7 +14,7 @@ import epgp.db.dbo.RaidInstance;
 public class ItemJsonParserTest {
 
 	@Test
-	public void testHaloOfTranscendence() {
+	public void testHaloOfTranscendence() throws IOException {
 		Item item = new ItemJsonParser().get(16921);
 		assertThat(item.getId()).isEqualTo(16921);
 		assertThat(item.getName()).isEqualTo("Halo of Transcendence");

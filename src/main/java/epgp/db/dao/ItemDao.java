@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Update;
 
 import epgp.db.dbo.Item;
 import epgp.db.dbo.PlayerClass;
+import epgp.db.dbo.RaidInstance;
 
 
 public interface ItemDao {
@@ -29,6 +30,9 @@ public interface ItemDao {
 
 	@Select("SELECT * FROM item ORDER BY name")
 	List<Item> list();
+
+	@Select("SELECT * FROM item WHERE raid = #{raid} ORDER BY name")
+	List<Item> listForRaid(@Param("raid") RaidInstance raid);
 
 	// @Select("SELECT i.id, i.name " //
 	// + "FROM item AS i " //
@@ -74,6 +78,7 @@ public interface ItemDao {
 			+ "WHERE i.raid = (SELECT instance FROM raid WHERE id = #{raid}) " //
 			+ "ORDER BY raid DESC, name ASC")
 	List<Item> listForRaidAndPlayer(@Param("raid") int raid, @Param("player") int player);
+
 
 	// @Select("SELECT distinct(boss) AS boss FROM item ORDER BY boss")
 	// List<String> listBosses();

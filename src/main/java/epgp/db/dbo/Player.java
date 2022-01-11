@@ -11,6 +11,8 @@ public class Player {
 	private boolean enable;
 	private EpGp epgp;
 	private List<RaidAttendance> attendances;
+	private List<Loot> loots;
+	private List<NoLoot> noLoots;
 
 	public int getId() {
 		return id;
@@ -60,19 +62,48 @@ public class Player {
 		this.epgp = epgp;
 	}
 
-	public RaidAttendance getAttendance(RaidInstance instance, RaidAttendancePeriod period) {
+	public List<RaidAttendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(List<RaidAttendance> attendances) {
+		this.attendances = attendances;
+	}
+
+	public RaidAttendance attendance(RaidInstance instance, RaidAttendancePeriod period) {
 		return attendances.stream()
 				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
 				.orElseGet(() -> new RaidAttendance());
 	}
 
-	public List<RaidAttendance> getAttendances() {
-		return attendances;
+	public int getAllAttendancesCount() {
+		return attendances.stream().filter(a -> a.getPeriod() == RaidAttendancePeriod.always)
+				.map(a -> a.getAttendance())
+				.reduce(0, (a,b)->a+b);
 	}
 
+	public List<Loot> getLoots() {
+		return loots;
+	}
 
-	public void setAttendances(List<RaidAttendance> attendances) {
-		this.attendances = attendances;
+	public void setLoots(List<Loot> loots) {
+		this.loots = loots;
+	}
+
+	public int lootCount(LootAttribution attribution) {
+		return (int) loots.stream().filter(l -> l.getAttribution() == attribution).count();
+	}
+
+	public List<NoLoot> getNoLoots() {
+		return noLoots;
+	}
+
+	public void setNoLoots(List<NoLoot> noLoots) {
+		this.noLoots = noLoots;
+	}
+
+	public NoLoot noLoot(LootAttribution attribution) {
+		return noLoots.stream().filter(l->l.getAttribution()==attribution).findFirst().orElse(null);
 	}
 
 }
