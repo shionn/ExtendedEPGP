@@ -34,11 +34,13 @@ public interface ItemDao {
 	@Select("SELECT * FROM item WHERE raid = #{raid} ORDER BY name")
 	List<Item> listForRaid(@Param("raid") RaidInstance raid);
 
-	// @Select("SELECT i.id, i.name " //
-	// + "FROM item AS i " //
-	// + "INNER JOIN item_assignment AS ia ON ia.item = i.id AND ia.class = #{class} "
-	// + "ORDER BY name")
-	// List<Item> listForClass(PlayerClass clazz);
+	@Select("SELECT i.id, i.name " //
+			+ "FROM       item AS i " //
+			+ "INNER JOIN item_assignment AS ia ON ia.item  = i.id "
+			+ "                                AND ia.class = #{class} "
+			+ "WHERE i.raid != 'None' "
+			+ "ORDER BY name")
+	List<Item> listForClassInRaid(PlayerClass clazz);
 
 	@Select("SELECT * FROM item WHERE id = #{id}")
 	@Results({

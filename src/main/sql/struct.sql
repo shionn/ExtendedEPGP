@@ -66,6 +66,17 @@ CREATE TABLE player_loot (
 ) DEFAULT CHARACTER SET=utf8;
 
 
+CREATE TABLE player_wish (
+  player       int(11)     NOT NULL,
+  item         int(11)     NOT NULL,
+  created      datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (player, item),
+  FOREIGN KEY (player) REFERENCES player(id),
+  FOREIGN KEY (item)   REFERENCES item(id)
+) DEFAULT CHARACTER SET=utf8;
+
+
+
 -- HELP
 ALTER TABLE raid MODIFY COLUMN id int(11) NOT NULL AUTO_INCREMENT;
 select * from information_schema.table_constraints where constraint_schema = 'epgp';

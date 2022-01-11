@@ -23,7 +23,6 @@
 <!-- 				<a href="#" class="pure-menu-link">Liste de souhait</a> -->
 <!-- 				<ul class="pure-menu-children"> -->
 <%-- 					<li class="pure-menu-item"><a href='<spring:url value="/priority"/>' class="pure-menu-link">Par Loots</a></li> --%>
-<%-- 					<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Par Personnage</a></li> --%>
 <!-- 				</ul> -->
 <!-- 			</li> -->
 <!-- 			<li class="pure-menu-item pure-menu-has-children"> -->
@@ -47,6 +46,7 @@
 				<a href="#" class="pure-menu-link">Joueurs</a>
 				<ul class="pure-menu-children">
 					<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
+					<li class="pure-menu-item"><a href='<spring:url value="/player/wish"/>' class="pure-menu-link">Wish List</a></li>
 					<li class="pure-menu-item"><a href='<spring:url value="/player/statistic"/>' class="pure-menu-link">Statistique</a></li>
 				</ul>
 			</li>

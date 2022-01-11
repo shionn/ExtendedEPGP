@@ -13,6 +13,7 @@ public class Player {
 	private List<RaidAttendance> attendances;
 	private List<Loot> loots;
 	private List<NoLoot> noLoots;
+	private List<PlayerWish> wishes;
 
 	public int getId() {
 		return id;
@@ -106,4 +107,11 @@ public class Player {
 		return noLoots.stream().filter(l->l.getAttribution()==attribution).findFirst().orElse(null);
 	}
 
+	public List<PlayerWish> getWishes() {
+		return wishes;
+	}
+
+	public void setWishes(List<PlayerWish> wishes) {
+		this.wishes = wishes;
+	}
 }

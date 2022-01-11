@@ -35,6 +35,9 @@ public class PlayerFilterController {
 		if (referer.indexOf("/player/statistic") > 0) {
 			return "redirect:/player/statistic";
 		}
+		if (referer.indexOf("/player/wish") > 0) {
+			return "redirect:/player/wish";
+		}
 		return "redirect:/";
 	}
 
