@@ -1,5 +1,6 @@
 package epgp.admin;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,13 +30,11 @@ public class AdminItemController {
 	private ItemJsonParser parser;
 
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
-	public String createItem(@RequestParam(name = "id") int id, RedirectAttributes attr) {
-		Item item = parser.get(id);
-		ItemDao dao = session.getMapper(ItemDao.class);
-		dao.create(item);
-		item.getClasses().stream().forEach(clazz -> dao.createItemAssignment(item.getId(), clazz));
-		attr.addFlashAttribute("message", "Item added");
+	public String createItem(@RequestParam(name = "id") int id, RedirectAttributes attr)
+			throws IOException {
+		parser.getAndCreate(id);
 		session.commit();
+		attr.addFlashAttribute("message", "Item ajouté");
 		return "redirect:/admin/edit-item/" + id;
 	}
 

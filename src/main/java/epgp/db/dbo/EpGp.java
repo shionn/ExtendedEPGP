@@ -21,4 +21,12 @@ public class EpGp {
 		this.gp = gp;
 	}
 
+	public int getEpgpPct() {
+		try {
+			return gp * 100 / ep;
+		} catch (ArithmeticException e) {
+			return 0;
+		}
+	}
+
 }

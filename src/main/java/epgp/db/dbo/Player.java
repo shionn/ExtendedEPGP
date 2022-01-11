@@ -60,9 +60,16 @@ public class Player {
 		this.epgp = epgp;
 	}
 
+	public RaidAttendance getAttendance(RaidInstance instance, RaidAttendancePeriod period) {
+		return attendances.stream()
+				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
+				.orElseGet(() -> new RaidAttendance());
+	}
+
 	public List<RaidAttendance> getAttendances() {
 		return attendances;
 	}
+
 
 	public void setAttendances(List<RaidAttendance> attendances) {
 		this.attendances = attendances;

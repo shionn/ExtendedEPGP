@@ -20,15 +20,16 @@ public interface PlayerDao {
 	@Results({ @Result(column = "class", property = "clazz") })
 	Player readOne(int id);
 
-	// @Select("SELECT * FROM player WHERE rank != 'inactif' ORDER BY name")
-	// @Results({ @Result(column = "class", property = "clazz") })
-	// List<Player> listPlayers();
-	//
+	@Select("SELECT * FROM player WHERE enable IS true ORDER BY class, name")
+	@Results({ @Result(column = "class", property = "clazz") })
+	List<Player> listPlayers();
+
 	// @Select("SELECT * FROM player WHERE rank NOT IN ('inactif', 'reroll') ORDER BY name")
 	// List<Player> listMainPlayers();
-	//
+
 	@Select("SELECT * FROM player ORDER BY name")
 	List<Player> listAllPlayers();
+
 	//
 	// @Select("SELECT p.name, p.class, p.rank, "
 	// + " i.name AS item_name, pw.attribution, pw.created, "
@@ -48,4 +49,5 @@ public interface PlayerDao {
 			+ "SET name = #{name}, class = #{clazz}, enable = #{enable} " //
 			+ "WHERE id = #{id}")
 	int updatePlayer(Player player);
+
 }

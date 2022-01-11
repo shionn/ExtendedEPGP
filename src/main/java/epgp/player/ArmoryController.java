@@ -1,5 +1,6 @@
 package epgp.player;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,6 @@ import epgp.db.dao.PlayerDao;
 import epgp.db.dbo.Item;
 import epgp.db.dbo.ItemSlot;
 import epgp.db.dbo.Player;
-import epgp.db.dbo.PlayerClass;
 import epgp.json.ItemJsonParser;
 
 @Controller
@@ -47,22 +47,16 @@ public class ArmoryController implements Serializable {
 	@Autowired
 	private SqlSession session;
 	@Autowired
-	private ArmoryForm form;
+	private PlayerFilterForm form;
 
 	@RequestMapping(value = "/armory", method = RequestMethod.GET)
 	public ModelAndView list() {
 		return new ModelAndView("armory") //
-				.addObject("form", form) //
-				.addObject("classes", PlayerClass.values()) //
+				.addObject("formFilter", form) //
 				.addObject("slots", SLOTS) //
-				.addObject("armories", session.getMapper(ArmoryDao.class).list(form.getClasses()));
+				.addObject("armories", session.getMapper(ArmoryDao.class).list(form));
 	}
 
-	@RequestMapping(value = "/armory/toggle-class/{clazz}", method = RequestMethod.GET)
-	public String filterRaid(@PathVariable("clazz") PlayerClass clazz) {
-		form.toggleClass(clazz);
-		return "redirect:/armory";
-	}
 
 	@RequestMapping(value = "/armory/add/{id}", method = RequestMethod.GET)
 	public ModelAndView openAdd(@PathVariable("id") int id) {
@@ -81,17 +75,15 @@ public class ArmoryController implements Serializable {
 	public String addToArmory(@PathVariable("player-id") int player,
 			@RequestParam(name = "item-id", defaultValue = "0") int itemId,
 			@RequestParam(name = "new-item-id", defaultValue = "0") int newItemId,
-			RedirectAttributes attr) {
+			RedirectAttributes attr) throws IOException {
 		if (newItemId != 0) {
-			Item item = parser.get(newItemId);
-			session.getMapper(ItemDao.class).create(item);
-			item.getClasses().stream().forEach(clazz -> session.getMapper(ItemDao.class)
-					.createItemAssignment(item.getId(), clazz));
-			attr.addFlashAttribute("message", "Item added");
+			Item item = parser.getAndCreate(newItemId);
 			session.getMapper(ArmoryDao.class).add(player, item.getId());
-		} else if (itemId != 0) {
-			session.getMapper(ArmoryDao.class).add(player, itemId);
+			session.commit();
+			attr.addFlashAttribute("message", "Ajouter à l'armurerie, fixons les infos de l'objet");
+			return "redirect:/admin/edit-item/" + newItemId;
 		}
+		session.getMapper(ArmoryDao.class).add(player, itemId);
 		session.commit();
 		return "redirect:/armory";
 	}

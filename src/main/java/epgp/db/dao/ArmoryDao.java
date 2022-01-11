@@ -11,14 +11,17 @@ import org.apache.ibatis.annotations.Select;
 
 import epgp.db.dbo.Armory;
 import epgp.db.dbo.Item;
-import epgp.db.dbo.PlayerClass;
+import epgp.player.PlayerFilterForm;
 
-public interface ArmoryDao {
+public interface ArmoryDao extends ScriptFragDao {
 
 	@Select("<script>SELECT * FROM player " //
 			+ "WHERE enable is true " //
-			+ "  <if test='!classes.isEmpty()'>"
-			+ "    AND class IN <foreach item='c' collection='classes' open='(' separator=',' close=')'>#{c}</foreach>"
+			+ "  <if test='!form.classes.isEmpty()'>" //
+			+ "    AND class IN " + IN_CLASSES //
+			+ "  </if> " //
+			+ "  <if test='!form.players.isEmpty()'> " //
+			+ "    AND id IN " + IN_PLAYER_ID //
 			+ "  </if> " //
 			+ "ORDER BY class, name " //
 			+ "</script>")
@@ -27,7 +30,7 @@ public interface ArmoryDao {
 			@Result(column = "name", property = "player.name"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "id", property = "items", many = @Many(select = "listItems")) })
-	List<Armory> list(@Param("classes") List<PlayerClass> classes);
+	List<Armory> list(@Param("form") PlayerFilterForm form);
 
 	
 	@Select("<script>SELECT i.id, i.name, i.ilvl, i.slot " //

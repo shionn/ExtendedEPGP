@@ -14,11 +14,14 @@ public class PlayerStatisticController {
 
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private PlayerFilterForm form;
 
 	@RequestMapping(value = "/player/statistic", method = RequestMethod.GET)
 	public ModelAndView open() {
-		return new ModelAndView("player-statistic").addObject("stats",
-				session.getMapper(PlayerStatisticDao.class).list());
+		return new ModelAndView("player-statistic") //
+				.addObject("formFilter", form) //
+				.addObject("players", session.getMapper(PlayerStatisticDao.class).list(form));
 	}
 
 }

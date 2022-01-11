@@ -18,7 +18,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		return "redirect:/admin";
+		return "redirect:/armory";
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)

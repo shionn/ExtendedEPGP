@@ -62,14 +62,20 @@ table {
 		position: sticky;
 		top: 0;
 		background-color: #e0e0e0;
+		z-index: 1;
 	}
 
 	thead tr:nth-child(2) th {
 		position: sticky;
 		top: 35px;
 		background-color: #e0e0e0;
+		z-index: 1;
 	}
-
+	
+	thead tr.vert {
+		writing-mode: sideways-lr;
+	}
+	
 	td.border-right {
 		border-right: 1px solid #cbcbcb;
 	}

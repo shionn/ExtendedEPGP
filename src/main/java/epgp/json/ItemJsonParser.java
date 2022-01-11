@@ -1,14 +1,22 @@
 package epgp.json;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import epgp.EpgpComputer;
+import epgp.db.dao.ItemDao;
 import epgp.db.dbo.Item;
 import epgp.db.dbo.ItemSlot;
 import epgp.db.dbo.PlayerClass;
@@ -25,7 +33,18 @@ public class ItemJsonParser {
 	private static final String DROPPED_BY__ = "Dropped by: ";
 	private static final String CLASSES__ = "Classes: ";
 
-	public Item get(int id) {
+	@Autowired
+	private SqlSession session;
+
+	public Item getAndCreate(int id) throws IOException {
+		Item item = get(id);
+		session.getMapper(ItemDao.class).create(item);
+		item.getClasses().stream().forEach(clazz -> session.getMapper(ItemDao.class)
+				.createItemAssignment(item.getId(), clazz));
+		return item;
+	}
+
+	public Item get(int id) throws IOException {
 		JSONObject json = retreiveJsonObject(id);
 		System.out.println(json.toString());
 		Item item = buildFrom(json);
@@ -34,8 +53,8 @@ public class ItemJsonParser {
 		return item;
 	}
 
-	private JSONObject retreiveJsonObject(int id) {
-		Iterator<Object> ite = ItemJsonDataHolder.get().iterator();
+	private JSONObject retreiveJsonObject(int id) throws IOException {
+		Iterator<Object> ite = readJsonData().iterator();
 		while (ite.hasNext()) {
 			JSONObject next = (JSONObject) ite.next();
 			if (next.getInt("itemId") == id) {
@@ -43,6 +62,16 @@ public class ItemJsonParser {
 			}
 		}
 		throw new IllegalArgumentException("not found <" + id + ">");
+	}
+
+	private JSONArray readJsonData() throws IOException {
+		try (InputStream is = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("data.json");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+			StringBuilder content = new StringBuilder();
+			reader.lines().forEach(content::append);
+			return new JSONArray(content.toString());
+		}
 	}
 
 	private Item buildFrom(JSONObject json) {
