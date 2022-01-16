@@ -26,7 +26,7 @@ import epgp.json.ItemJsonParser;
 @Controller
 public class ArmoryController implements Serializable {
 	private static final List<List<ItemSlot>> SLOTS = Arrays.asList(Arrays.asList(ItemSlot.TwoHand),
-			Arrays.asList(ItemSlot.MainHand), //
+			Arrays.asList(ItemSlot.MainHand, ItemSlot.OneHand), //
 			Arrays.asList(ItemSlot.OffHand, ItemSlot.HeldInOffhand, ItemSlot.Shield), //
 			Arrays.asList(ItemSlot.Ranged, ItemSlot.Relic), //
 			Arrays.asList(ItemSlot.Head), //

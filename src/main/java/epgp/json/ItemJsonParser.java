@@ -129,6 +129,11 @@ public class ItemJsonParser {
 				classes.add(PlayerClass.Warrior);
 				classes.add(PlayerClass.Hunter);
 				break;
+			case "Bow":
+				classes.add(PlayerClass.Rogue);
+				classes.add(PlayerClass.Warrior);
+				classes.add(PlayerClass.Hunter);
+				break;
 			case "Cloth":
 				if (ItemSlot.Back.name().equals(json.getString(SLOT))) {
 					classes.addAll(Arrays.asList(PlayerClass.values()));
@@ -137,6 +142,20 @@ public class ItemJsonParser {
 					classes.add(PlayerClass.Priest);
 					classes.add(PlayerClass.Warlock);
 				}
+				break;
+			case "Crossbow":
+				classes.add(PlayerClass.Rogue);
+				classes.add(PlayerClass.Warrior);
+				classes.add(PlayerClass.Hunter);
+				break;
+			case "Dagger":
+				classes.add(PlayerClass.Druid);
+				classes.add(PlayerClass.Hunter);
+				classes.add(PlayerClass.Mage);
+				classes.add(PlayerClass.Priest);
+				classes.add(PlayerClass.Rogue);
+				classes.add(PlayerClass.Warlock);
+				classes.add(PlayerClass.Warrior);
 				break;
 			case "Idol":
 				classes.add(PlayerClass.Druid);

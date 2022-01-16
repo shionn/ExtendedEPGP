@@ -68,6 +68,7 @@
 						<td>
 							<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true"></i></c:if>
 							<c:if test="${e.absent}"><i class="fa fa-eye-slash" aria-hidden="true"></i></c:if>
+							<c:if test="${e.quit}"><i class="fa fa-sign-out" aria-hidden="true"></i></c:if>
 						</td>
 						<td>
 							<c:if test="${not user.admin}">

@@ -58,7 +58,7 @@ public interface RaidDao {
 	public Raid read(int id);
 
 	@Select("SELECT p.id, p.name, p.class, " //
-			+ " r.raid AS member, r.bench, r.absent " //
+			+ " r.raid AS member, r.bench, r.absent, r.quit " //
 			+ "FROM player AS p " //
 			+ "LEFT JOIN raid_entry AS r ON  r.player = p.id "
 			+ "                          AND r.raid   = #{raid} " //
@@ -76,10 +76,11 @@ public interface RaidDao {
 	@Delete("DELETE FROM raid_entry WHERE raid = #{raid}")
 	public int removeRaidEntry(@Param("raid") int raid);
 
-	@Insert("INSERT INTO raid_entry (raid, player, bench, absent) "
-			+ "VALUES (#{raid}, #{player}, #{bench}, #{absent})")
+	@Insert("INSERT INTO raid_entry (raid, player, bench, absent, quit) "
+			+ "VALUES (#{raid}, #{player}, #{bench}, #{absent}, #{quit})")
 	public int addMember(@Param("raid") int raid, @Param("player") int player,
-			@Param("bench") boolean bench, @Param("absent") boolean visible);
+			@Param("bench") boolean bench, @Param("absent") boolean visible,
+			@Param("quit") boolean quit);
 
 	// @Insert("INSERT INTO raid_player_wish (raid, player, item, attribution) "
 	// + "VALUES (#{raid}, #{player}, #{item}, #{attribution})")

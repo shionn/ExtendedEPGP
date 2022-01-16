@@ -7,6 +7,7 @@ public class RaidEntry {
 	private boolean bench;
 	private boolean absent;
 	private boolean member;
+	private boolean quit;
 	private List<Loot> loots;
 
 	public Player getPlayer() {
@@ -47,5 +48,13 @@ public class RaidEntry {
 
 	public void setLoots(List<Loot> loots) {
 		this.loots = loots;
+	}
+
+	public boolean isQuit() {
+		return quit;
+	}
+
+	public void setQuit(boolean quit) {
+		this.quit = quit;
 	}
 }
