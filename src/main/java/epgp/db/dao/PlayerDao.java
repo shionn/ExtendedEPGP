@@ -36,6 +36,9 @@ public interface PlayerDao extends ScriptFragDao {
 	@Select("<script>SELECT p.name, p.class, i.name AS item_name, i.id AS item_id, pw.created " //
 			+ "FROM player           AS p " //
 			+ "LEFT JOIN player_wish AS pw ON p.id = pw.player "
+			+ "                           AND pw.item NOT IN (SELECT item "
+			+ "                                               FROM player_loot "
+			+ "                                               WHERE player = p.id)"
 			+ "LEFT JOIN item        AS i  ON i.id = pw.item " //
 			+ "WHERE p.enable IS true " //
 			+ "  <if test='!form.classes.isEmpty()'> " //

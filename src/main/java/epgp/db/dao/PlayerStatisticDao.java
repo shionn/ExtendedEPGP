@@ -36,6 +36,20 @@ public interface PlayerStatisticDao extends ScriptFragDao {
 			@Result(column = "id", property = "noLoots", many = @Many(select = "listNoLoots")), })
 	List<Player> list(@Param("form") PlayerFilterForm form);
 
+	@Select("<script>SELECT p.id, p.name, p.class as clazz, e.ep, e.gp " //
+			+ "FROM player    AS p " //
+			+ "LEFT JOIN epgp AS e ON e.player = p.id " //
+			+ "WHERE p.id = #{id} " //
+			+ "ORDER BY clazz, name </script>")
+	@Results({
+			@Result(column = "id", property = "id"),
+			@Result(column = "ep", property = "epgp.ep"),
+			@Result(column = "gp", property = "epgp.gp"),
+			@Result(column = "id", property = "attendances", many = @Many(select = "listAttendances")),
+			@Result(column = "id", property = "loots", many = @Many(select = "listLoots")),
+			@Result(column = "id", property = "noLoots", many = @Many(select = "listNoLoots")), })
+	Player view(@Param("id") int player);
+
 	@Select("SELECT * FROM raid_attendance WHERE player = #{id}")
 	List<RaidAttendance> listAttendances(@Param("id") int id);
 

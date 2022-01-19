@@ -1,7 +1,9 @@
 package epgp.raid;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import epgp.db.dao.ItemDao;
+import epgp.db.dao.PlayerWhishDao;
 import epgp.db.dao.RaidDao;
+import epgp.db.dbo.Item;
 import epgp.db.dbo.LootAttribution;
+import epgp.db.dbo.Player;
+import epgp.db.dbo.PlayerWish;
 import epgp.db.dbo.Raid;
 import epgp.db.dbo.RaidEntry;
 import epgp.db.dbo.RaidInstance;
@@ -32,7 +38,10 @@ public class RaidController implements Serializable {
 	@Autowired
 	private SqlSession session;
 
+	private int item = 0;
+
 	private SortOrder order = SortOrder.clazz;
+
 
 	@RequestMapping(value = "/raid", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -41,8 +50,22 @@ public class RaidController implements Serializable {
 		for (Raid raid : raids) {
 			raid.setEntries(dao.listEntry(raid.getId(), order));
 		}
+		List<Item> items = new ArrayList<>();
+		if (!raids.isEmpty()) {
+			items = session.getMapper(ItemDao.class).listForRaid(raids.get(0).getId());
+		}
+		List<PlayerWish> wishes = new ArrayList<>();
+		List<Player> players = new ArrayList<>();
+		if (item != 0) {
+			wishes = session.getMapper(PlayerWhishDao.class).listForRaid(item,
+					raids.get(0).getId());
+			players = wishes.stream().map(w -> w.getPlayer()).collect(Collectors.toList());
+		}
 		return new ModelAndView("raid") //
 				.addObject("raids", raids) //
+				.addObject("items", items) //
+				.addObject("wishes", wishes) //
+				.addObject("players", players) //
 				.addObject("instances", RaidInstance.values());
 	}
 
@@ -121,16 +144,11 @@ public class RaidController implements Serializable {
 		return "redirect:/raid";
 	}
 
-	// @RequestMapping(value = "/raid/sort/{order}", method = RequestMethod.GET)
-	// public String orderBy(@PathVariable("order") SortOrder order) {
-	// this.order = order;
-	// return "redirect:/raid";
-	// }
-	//
-	// @RequestMapping(value = "/raid/filterboss", method = RequestMethod.POST)
-	// public String filterBoss(@RequestParam("boss") String boss) {
-	// this.boss = boss;
-	// return "redirect:/raid";
-	// }
+
+	@RequestMapping(value = "/raid/wish", method = RequestMethod.GET)
+	public String viewItemWish(@RequestParam(name = "item") int itemId) {
+		this.item = itemId;
+		return "redirect:/raid";
+	}
 
 }

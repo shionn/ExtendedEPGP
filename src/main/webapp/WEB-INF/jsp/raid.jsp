@@ -6,6 +6,28 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 <jsp:attribute name="content">
+	<c:if test="${not empty items}">
+		<spring:url value="/raid/wish" var="url"/>
+		<form:form method="GET" class="pure-form-aligned" action="${url}">
+			<fieldset>
+				<legend>Voir la liste de souhait Sur un objet</legend>
+				<div class="pure-control-group">
+					<label for="item">Objet</label>
+					<select name="item">
+						<c:forEach items="${items}" var="c">
+							<option value="${c.id}">${c.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="pure-controls">
+					<button type="submit" class="pure-button pure-button-primary">Voir</button>
+				</div>
+			</fieldset>
+		</form:form>
+	</c:if>
+	<c:if test="${not empty wishes}">
+		<t:player-table-stats/>
+	</c:if>	
 	<c:forEach items="${raids}" var="raid">
 		<c:if test="${user.admin}">
 			<spring:url value="/raid/update" var="url"/>

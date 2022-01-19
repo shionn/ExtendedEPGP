@@ -19,7 +19,7 @@ import epgp.db.dbo.SortOrder;
 
 public interface RaidDao {
 
-	@Select("SELECT * FROM raid WHERE running IS true ORDER BY date ASC")
+	@Select("SELECT * FROM raid WHERE running IS true ORDER BY date DESC, id DESC")
 	public List<Raid> listRunnings();
 
 	@Select("SELECT * " //
@@ -70,9 +70,6 @@ public interface RaidDao {
 			@Result(column = "class", property = "player.clazz") })
 	public List<RaidEntry> readEntries(@Param("raid") int raid);
 
-	// @Delete("DELETE FROM raid_player_wish WHERE raid = #{raid}")
-	// public int removeRaidPlayerWish(@Param("raid") int raid);
-
 	@Delete("DELETE FROM raid_entry WHERE raid = #{raid}")
 	public int removeRaidEntry(@Param("raid") int raid);
 
@@ -81,11 +78,6 @@ public interface RaidDao {
 	public int addMember(@Param("raid") int raid, @Param("player") int player,
 			@Param("bench") boolean bench, @Param("absent") boolean visible,
 			@Param("quit") boolean quit);
-
-	// @Insert("INSERT INTO raid_player_wish (raid, player, item, attribution) "
-	// + "VALUES (#{raid}, #{player}, #{item}, #{attribution})")
-	// public int addRaidPlayerWish(@Param("raid") int raid, @Param("player") int player,
-	// @Param("item") int item, @Param("attribution") LootAttribution attribution);
 
 	@Insert("INSERT INTO player_loot (raid, player, item, attribution) "
 			+ "VALUES(#{raid}, #{player}, #{item}, #{attribution})")
@@ -98,14 +90,6 @@ public interface RaidDao {
 			+ "WHERE raid = #{raid} AND player = #{player} AND item = #{item}")
 	public int removeLoot(@Param("raid") int raid, @Param("player") int player,
 			@Param("item") int item);
-
-	// @Update("UPDATE player_wish AS pw "
-	// + "INNER JOIN player_loot AS pl ON pw.player = pl.player "
-	// + " AND pw.item = pl.item "
-	// + " AND pl.raid = #{raid} " //
-	// + "SET pw.running = false "
-	// )
-	// public void closeLootedWish(@Param("raid") int raid);
 
 	@Update("UPDATE raid SET running = true WHERE id = #{id}")
 	public void startEdit(@Param("id") int id);

@@ -36,8 +36,8 @@ public class HomeController {
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ModelAndView info() {
 		List< List<Item>> itemss = new ArrayList<>();
-		itemss.add(session.getMapper(ItemDao.class).listForRaid(RaidInstance.MC));
-		itemss.add(session.getMapper(ItemDao.class).listForRaid(RaidInstance.Boss));
+		itemss.add(session.getMapper(ItemDao.class).listForInstance(RaidInstance.MC));
+		itemss.add(session.getMapper(ItemDao.class).listForInstance(RaidInstance.Boss));
 		return new ModelAndView("info") //
 				.addObject("itemss", itemss);
 	}
