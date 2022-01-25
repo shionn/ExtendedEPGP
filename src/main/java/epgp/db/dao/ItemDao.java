@@ -77,10 +77,6 @@ public interface ItemDao {
 			+ "ORDER BY name")
 	List<Item> listAvailableForClass(@Param("class") PlayerClass clazz);
 
-	// @Select("SELECT * FROM item " //
-	// + "WHERE raid = (SELECT instance FROM raid WHERE id = #{id}) " //
-	// + "ORDER BY raid DESC, name ASC")
-	// List<Item> listForRaid(int raid);
 
 	@Select("SELECT i.id, i.name " //
 			+ "FROM item AS i " //
@@ -91,13 +87,9 @@ public interface ItemDao {
 			+ "ORDER BY raid DESC, name ASC")
 	List<Item> listForRaidAndPlayer(@Param("raid") int raid, @Param("player") int player);
 
+	@Select("SELECT raid FROM item WHERE boss = #{boss} LIMIT 1")
+	RaidInstance retreiveRaid(String boss);
 
 
-	// @Select("SELECT distinct(boss) AS boss FROM item ORDER BY boss")
-	// List<String> listBosses();
-	//
-	// @Update("UPDATE item SET boss = #{newBossName} WHERE boss = #{bossName}")
-	// int renameBosses(@Param("bossName") String bossName, @Param("newBossName") String
-	// newBossName);
 
 }

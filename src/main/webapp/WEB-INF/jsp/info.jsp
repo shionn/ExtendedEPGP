@@ -79,13 +79,13 @@
 		est appliqué à la valeur précedente.</p>
 		<p>Au contraire certain objet sont nul, dans ce cas un coéfficiens diviseur est appliqué à la valeur précédente.</p>
 		<p>Les objets obtenu en OS (Other Spe, Other Stuff, +2) ne compte pas et valent 0</p>
-		<p><em>(En cours de dev)</em> Les objets obtenu en WL sont majoré de 25%.</p>
+		<p><em>(En cours de dev)</em> Les objets obtenu en BIS sont majoré de 25%.</p>
 		<h2>EP</h2>
 			<p>Les EP sont les points d'éffort fourni par les joueurs, il existe plusieurs méthode pour les comptabiliser.
 			Ici le mode choisit est de prendre la valeur en GP des objets lootés dans le raid, de diviser par le nombre de joueur présent.</p>
 			<p>Par exemple dans un raid de 10 personne, 2 items sont attribué en MS, la CTS à 2490 et le Baton de la flamme d'ombre à 6561.
 			Le raid a donc une valeur en EP de 2490 + 6561 = 9051. Chaque raideur gagne donc 9051/10 = 905 EP.</p>
-			<p>em>(En cours de dev)</em>  Cependant une tel valeur de calcul n'ai pas egal pour tous les raids, 
+			<p>Cependant une telle valeur de calcul n'ai pas egal pour tous les raids, 
 			en effet une soiréee "try en boucle sur un boss" aurait une valeur de 0, ce qui n'est pas encourageant. 
 			Donc la valeur d'EP, d'un raid est donc la valeur moyenne d'un raid du même type.</p>
 			<p>Exemple si avec la regle de calcul précedente, sur un MC le raid gagnerai 10000 et sur un autre 20000, 

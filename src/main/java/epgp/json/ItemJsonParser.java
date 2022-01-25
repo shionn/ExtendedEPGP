@@ -38,6 +38,7 @@ public class ItemJsonParser {
 
 	public Item getAndCreate(int id) throws IOException {
 		Item item = get(id);
+		item.setRaid(session.getMapper(ItemDao.class).retreiveRaid(item.getBoss()));
 		session.getMapper(ItemDao.class).create(item);
 		item.getClasses().stream().forEach(clazz -> session.getMapper(ItemDao.class)
 				.createItemAssignment(item.getId(), clazz));
@@ -157,6 +158,10 @@ public class ItemJsonParser {
 				classes.add(PlayerClass.Warlock);
 				classes.add(PlayerClass.Warrior);
 				break;
+			case "Gun":
+				classes.add(PlayerClass.Warrior);
+				classes.add(PlayerClass.Hunter);
+				break;
 			case "Idol":
 				classes.add(PlayerClass.Druid);
 				break;
@@ -186,6 +191,11 @@ public class ItemJsonParser {
 				break;
 			case "Plate":
 				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Warrior);
+				break;
+			case "Polearm":
+				classes.add(PlayerClass.Paladin);
+				classes.add(PlayerClass.Hunter);
 				classes.add(PlayerClass.Warrior);
 				break;
 			case "Shield":

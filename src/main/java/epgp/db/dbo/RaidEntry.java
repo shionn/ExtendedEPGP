@@ -4,6 +4,7 @@ import java.util.List;
 
 public class RaidEntry {
 	private Player player;
+	private Raid raid;
 	private boolean bench;
 	private boolean absent;
 	private boolean member;
@@ -56,5 +57,13 @@ public class RaidEntry {
 
 	public void setQuit(boolean quit) {
 		this.quit = quit;
+	}
+
+	public Raid getRaid() {
+		return raid;
+	}
+
+	public void setRaid(Raid raid) {
+		this.raid = raid;
 	}
 }

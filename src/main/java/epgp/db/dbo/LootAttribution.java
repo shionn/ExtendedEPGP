@@ -1,7 +1,7 @@
 package epgp.db.dbo;
 
 public enum LootAttribution {
-	wishList("WL", true),
+	wishList("BIS", true),
 	primary("MS", true),
 	secondary("OS", false),
 	bag("Sac", false),

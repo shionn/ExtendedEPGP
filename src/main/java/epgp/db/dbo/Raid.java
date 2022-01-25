@@ -2,10 +2,11 @@ package epgp.db.dbo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Raid {
+public class Raid implements Comparable<Raid> {
 	private int id;
 	private String name;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -61,6 +62,29 @@ public class Raid {
 
 	public void setInstance(RaidInstance instance) {
 		this.instance = instance;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Raid other = (Raid) obj;
+		return id == other.id;
+	}
+
+	@Override
+	public int compareTo(Raid o) {
+		int compare = o.date.compareTo(date);
+		if (compare == 0) {
+			compare = Integer.compare(o.id, id);
+		}
+		return compare;
 	}
 
 }

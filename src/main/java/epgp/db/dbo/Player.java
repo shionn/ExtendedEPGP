@@ -14,6 +14,7 @@ public class Player {
 	private List<Loot> loots;
 	private List<NoLoot> noLoots;
 	private List<PlayerWish> wishes;
+	private List<RaidEntry> histories;
 
 	public int getId() {
 		return id;
@@ -113,5 +114,18 @@ public class Player {
 
 	public void setWishes(List<PlayerWish> wishes) {
 		this.wishes = wishes;
+	}
+
+	public RaidEntry history(Raid raid) {
+		return histories.stream().filter(re -> re.getRaid().getId() == raid.getId()).findFirst()
+				.orElse(null);
+	}
+
+	public List<RaidEntry> getHistories() {
+		return histories;
+	}
+
+	public void setHistories(List<RaidEntry> histories) {
+		this.histories = histories;
 	}
 }

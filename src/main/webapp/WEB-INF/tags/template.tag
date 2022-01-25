@@ -46,8 +46,9 @@
 				<a href="#" class="pure-menu-link">Joueurs</a>
 				<ul class="pure-menu-children">
 					<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
-					<li class="pure-menu-item"><a href='<spring:url value="/player/wish"/>' class="pure-menu-link">Wish List</a></li>
+<%-- 					<li class="pure-menu-item"><a href='<spring:url value="/player/wish"/>' class="pure-menu-link">Wish List</a></li> --%>
 					<li class="pure-menu-item"><a href='<spring:url value="/player/statistic"/>' class="pure-menu-link">Statistique</a></li>
+					<li class="pure-menu-item"><a href='<spring:url value="/player/history"/>' class="pure-menu-link">Historique</a></li>
 				</ul>
 			</li>
 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
