@@ -26,6 +26,9 @@ public interface PlayerStatisticDao extends ScriptFragDao {
 			+ "  <if test='!form.players.isEmpty()'> " //
 			+ "    AND p.id IN " + IN_PLAYER_ID //
 			+ "  </if> " //
+			+ "  <if test='form.isInRaid()'> " //
+			+ "    AND p.id IN " + IN_RAID //
+			+ "  </if> " //
 			+ "ORDER BY clazz, name </script>")
 	@Results({
 			@Result(column = "id", property = "id"),

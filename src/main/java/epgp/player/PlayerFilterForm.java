@@ -19,6 +19,7 @@ public class PlayerFilterForm {
 
 	private List<PlayerClass> classes = new ArrayList<>();
 	private List<Integer> players = new ArrayList<>();
+	private boolean inRaid;
 	@Autowired
 	private SqlSession session;
 
@@ -36,6 +37,10 @@ public class PlayerFilterForm {
 
 	public String getLinkColor(int player) {
 		return isPlayerSelected(player) ? "green" : "red";
+	}
+
+	public String getInRaidLinkColor() {
+		return inRaid ? "green" : "red";
 	}
 
 	public void toggleClass(PlayerClass clazz) {
@@ -72,6 +77,14 @@ public class PlayerFilterForm {
 
 	public boolean isDisplayPlayerFilter() {
 		return !classes.isEmpty();
+	}
+
+	public boolean isInRaid() {
+		return inRaid;
+	}
+
+	public void setInRaid(boolean inRaid) {
+		this.inRaid = inRaid;
 	}
 
 }

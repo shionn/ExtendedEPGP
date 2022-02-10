@@ -35,13 +35,14 @@ public interface RaidDao {
 			})
 	public List<RaidEntry> listEntry(@Param("raid") int raid, @Param("order") SortOrder order);
 
-	@Select("SELECT i.name, i.id, l.attribution " //
+	@Select("SELECT i.name, i.id, i.boss, l.attribution " //
 			+ "FROM player_loot AS l " //
 			+ "INNER JOIN item AS i ON i.id = l.item " //
 			+ "WHERE l.player = #{player} AND l.raid = #{raid} " //
 			+ "ORDER BY name ")
 	@Results({
 			@Result(column = "name", property = "item.name"),
+			@Result(column = "boss", property = "item.boss"),
 			@Result(column = "id", property = "item.id") })
 	public List<Loot> listLoot(@Param("player") int player, @Param("raid") int raid);
 

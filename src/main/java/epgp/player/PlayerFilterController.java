@@ -28,6 +28,12 @@ public class PlayerFilterController {
 		return redirect(referer);
 	}
 
+	@RequestMapping(value = "/toggle-inraid", method = RequestMethod.GET)
+	public String filterInRaid(@RequestHeader("referer") String referer) {
+		form.setInRaid(!form.isInRaid());
+		return redirect(referer);
+	}
+
 	private String redirect(String referer) {
 		if (referer.indexOf("/armory") > 0) {
 			return "redirect:/armory";

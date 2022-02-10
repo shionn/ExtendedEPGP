@@ -4,6 +4,7 @@
 <form>
 	<fieldset>
 		<legend>Filtre Joueur</legend>
+		<a href="<spring:url value="/toggle-inraid"/>" style="color: ${formFilter.inRaidLinkColor}">En Raid</a> <br>
 		<c:forEach items="${formFilter.allClasses}" var="cl">
 			<a href="<spring:url value="/toggle-class/${cl}"/>" style="color: ${formFilter.getLinkColor(cl)}">
 				<img class="class" src='<spring:url value="/img/${cl}.jpg"/>'/>

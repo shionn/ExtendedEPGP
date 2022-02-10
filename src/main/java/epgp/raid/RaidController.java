@@ -1,6 +1,7 @@
 package epgp.raid;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,12 +9,15 @@ import java.util.stream.Collectors;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,6 +26,7 @@ import epgp.db.dao.ItemDao;
 import epgp.db.dao.PlayerWhishDao;
 import epgp.db.dao.RaidDao;
 import epgp.db.dbo.Item;
+import epgp.db.dbo.Loot;
 import epgp.db.dbo.LootAttribution;
 import epgp.db.dbo.Player;
 import epgp.db.dbo.PlayerWish;
@@ -149,6 +154,45 @@ public class RaidController implements Serializable {
 	public String viewItemWish(@RequestParam(name = "item") int itemId) {
 		this.item = itemId;
 		return "redirect:/raid";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/raid/rcloot/{raid}", method = RequestMethod.GET)
+	public HttpEntity<String> csvRcLootCouncilExport(@PathVariable(name = "raid") int id) {
+		StringBuilder export = new StringBuilder();
+		RaidDao dao = session.getMapper(RaidDao.class);
+		Raid raid = dao.read(id);
+		for (RaidEntry e : dao.listEntry(id, order)) {
+			for (Loot loot : e.getLoots()) {
+				export.append(e.getPlayer().getName()).append(',') //
+						.append(new SimpleDateFormat("dd/mm/yy").format(raid.getDate())).append(',') //
+						.append(new SimpleDateFormat("hh:MM:ss").format(raid.getDate())).append(',') //
+						.append(raid.getDate().getTime()).append(',') //
+						.append(loot.getItem().getName()).append(',') //
+						.append(loot.getItem().getId()).append(',') //
+						.append(',') // item string
+						.append(loot.getAttribution().rcLootName()).append(',') // response id
+						.append(',') // vote
+						.append(e.getPlayer().getClazz().name()).append(',') //
+						.append(raid.getInstance().name()).append(',') //
+						.append(loot.getItem().getBoss()).append(',') //
+						.append(',') // difficulty id
+						.append(',') // map id
+						.append(',') // groupe size
+						.append(',') // gear 1
+						.append(',') // gear 2
+						.append(',') // responseId
+						.append(',') // isawardReason
+						.append(',') // sub type
+						.append(',') // equiploc
+						.append(',') // note
+						.append(',') // owner
+						.append('\n');
+			}
+		}
+		HttpHeaders header = new HttpHeaders();
+		header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + id + ".csv");
+		return new HttpEntity<String>(export.toString(), header);
 	}
 
 }

@@ -14,9 +14,11 @@
 							[${raid.instance}] ${raid.name}
 							<fmt:formatDate pattern="dd/MM/yyyy" value="${raid.date}"/>
 							(${raid.entries.size()})
+							
 							<c:if test="${user.admin}">
 								<a href='<spring:url value="/raid/edit/${raid.id}"/>' class="pull-right fa fa-pencil"></a>
 							</c:if>
+							<a href='<spring:url value="/raid/rcloot/${raid.id}"/>' class="pull-right fa fa-download" title="csv-rcloot"></a>
 						</th>
 					</tr>
 				</thead>

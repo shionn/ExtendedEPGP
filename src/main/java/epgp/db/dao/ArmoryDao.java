@@ -23,6 +23,9 @@ public interface ArmoryDao extends ScriptFragDao {
 			+ "  <if test='!form.players.isEmpty()'> " //
 			+ "    AND id IN " + IN_PLAYER_ID //
 			+ "  </if> " //
+			+ "  <if test='form.isInRaid()'> " //
+			+ "    AND id IN " + IN_RAID //
+			+ "  </if> " //
 			+ "ORDER BY class, name " //
 			+ "</script>")
 	@Results({
